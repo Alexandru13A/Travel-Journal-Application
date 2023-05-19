@@ -15,8 +15,16 @@ import java.util.List;
 @Dao
 public interface TripDao {
 
+    @Query("UPDATE trip_table SET tripIsFavorite = :isFavorite  WHERE tripId = :tripId")
+    void update(long tripId, boolean isFavorite);
+
+    @Query("SELECT* FROM trip_table WHERE tripId = :id")
+    LiveData<Trip> getFavoriteLiveData(long id);
+
     @Query("SELECT * FROM trip_table")
     LiveData<List<Trip>> getAllTrips();
+
+
 
     @Insert
     void insertTrip(Trip trip);
@@ -26,8 +34,6 @@ public interface TripDao {
 
     @Delete
     void deleteTrip(Trip trip);
-
-
 
 
 }

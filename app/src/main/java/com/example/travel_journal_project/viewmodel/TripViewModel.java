@@ -1,6 +1,7 @@
 package com.example.travel_journal_project.viewmodel;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -21,6 +22,7 @@ public class TripViewModel extends AndroidViewModel {
     private TripRepository repository;
     private LiveData<List<Trip>> getAllTrips;
 
+    private LiveData<Trip> favoriteLiveData;
 
 
     public TripViewModel(@NonNull Application application) {
@@ -50,6 +52,16 @@ public class TripViewModel extends AndroidViewModel {
         return getAllTrips;
     }
 
+
+    public void addToFavorite(long id, boolean value) {
+        repository.addToFavorite(id, value);
+    }
+
+
+    public LiveData<Trip> tripLiveData(long id) {
+        favoriteLiveData = repository.getFavoriteLiveData(id);
+        return favoriteLiveData;
+    }
 
 
 }

@@ -16,13 +16,11 @@ public class Trip {
     private String tripDestination;
     private String tripType;
 
-    @TypeConverters({DateConverter.class})
     private String tripStartDate;
-    @TypeConverters({DateConverter.class})
     private String tripEndDate;
     private float tripRating;
     private int tripPrice;
-    private boolean tripIsFavorite = false;
+    private boolean tripIsFavorite ;
 
     private String tripPhotoUrl = "";
 
@@ -30,6 +28,7 @@ public class Trip {
     public Trip() {
     }
 
+    @Ignore
     public Trip(String tripName, String tripDestination, String tripType, String tripStartDate, String tripEndDate, float tripRating, int tripPrice) {
         this.tripName = tripName;
         this.tripDestination = tripDestination;
@@ -41,7 +40,7 @@ public class Trip {
 
     }
 
-    @Ignore
+
     public Trip(String tripName, String tripDestination, String tripType, String tripStartDate, String tripEndDate, float tripRating, int tripPrice, boolean tripIsFavorite, String tripPhotoUrl) {
         this.tripName = tripName;
         this.tripDestination = tripDestination;

@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setTitle("Journeys To Remember ");
         }
 
+
         FloatingActionButton fab = findViewById(R.id.fab_add_trip);
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddTripActivity.class);
@@ -83,18 +84,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
+
         adapter.setTripClickListener(new TripAdapter.TripClickListener() {
             @Override
             public void onItemClick(Trip trip) {
                 Intent intent = new Intent(MainActivity.this, ReadTripActivity.class);
-                intent.putExtra(UpdateTripActivity.EXTRA_ID, trip.getTripId());
-                intent.putExtra(UpdateTripActivity.EXTRA_NAME, trip.getTripName());
-                intent.putExtra(UpdateTripActivity.EXTRA_DESTINATION, trip.getTripDestination());
-                intent.putExtra(UpdateTripActivity.EXTRA_TYPE, trip.getTripType());
-                intent.putExtra(UpdateTripActivity.EXTRA_PRICE, trip.getTripPrice());
-                intent.putExtra(UpdateTripActivity.EXTRA_START_DATE, trip.getTripStartDate());
-                intent.putExtra(UpdateTripActivity.EXTRA_END_DATE, trip.getTripEndDate());
-                intent.putExtra(UpdateTripActivity.EXTRA_RATING, trip.getTripRating());
+                intent.putExtra(ReadTripActivity.EXTRA_ID, trip.getTripId());
+                intent.putExtra(ReadTripActivity.EXTRA_NAME, trip.getTripName());
+                intent.putExtra(ReadTripActivity.EXTRA_DESTINATION, trip.getTripDestination());
+                intent.putExtra(ReadTripActivity.EXTRA_TYPE, trip.getTripType());
+                intent.putExtra(ReadTripActivity.EXTRA_PRICE, trip.getTripPrice());
+                intent.putExtra(ReadTripActivity.EXTRA_START_DATE, trip.getTripStartDate());
+                intent.putExtra(ReadTripActivity.EXTRA_END_DATE, trip.getTripEndDate());
+                intent.putExtra(ReadTripActivity.EXTRA_RATING, trip.getTripRating());
+                intent.putExtra(ReadTripActivity.EXTRA_FAVORITE, trip.isTripIsFavorite());
+
                 startActivityForResult(intent, READ_TRIP_REQUEST);
             }
 
@@ -129,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
             String startingDate = data.getStringExtra(AddTripActivity.EXTRA_START_DATE);
             String endingDate = data.getStringExtra(AddTripActivity.EXTRA_END_DATE);
             float tripRating = data.getFloatExtra(AddTripActivity.EXTRA_RATING, 0);
-            // boolean isFavorite = data.getBooleanExtra(AddTripActivity.EXTRA_FAVORITE, false);
 
             Trip trip = new Trip(tripName, tripDestination, tripType, startingDate, endingDate, tripRating, tripPrice);
             tripViewModel.insert(trip);
@@ -141,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "NOTE CAN'T BE UPDATED", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             String tripName = data.getStringExtra(AddTripActivity.EXTRA_NAME);
             String tripDestination = data.getStringExtra(AddTripActivity.EXTRA_DESTINATION);
             String tripType = data.getStringExtra(AddTripActivity.EXTRA_TYPE);
@@ -157,4 +159,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }

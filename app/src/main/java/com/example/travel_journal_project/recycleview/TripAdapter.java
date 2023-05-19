@@ -8,6 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travel_journal_project.R;
@@ -23,7 +24,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
 
     private List<Trip> trips = new ArrayList<>();
     private TripClickListener listener;
-    private TripViewModel tripViewModel;
+
 
     @NonNull
     @Override
@@ -40,7 +41,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
         holder.tripPriceTextView.setText(String.valueOf(currentTrip.getTripPrice()) + " € ");
         holder.tripRatingValue.setText(String.valueOf(currentTrip.getTripRating()) + " ✪ ");
 
-     
+
     }
 
     @Override
@@ -58,8 +59,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
     }
 
     class TripHolder extends RecyclerView.ViewHolder {
-
-
+        private FloatingActionButton tripFavoriteButton;
         private ImageView tripImageItem;
         private TextView tripNameTextView;
         private TextView tripDestinationTextView;
@@ -68,11 +68,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
 
         public TripHolder(@NonNull View itemView) {
             super(itemView);
+
             tripImageItem = itemView.findViewById(R.id.tripItemImage);
             tripNameTextView = itemView.findViewById(R.id.tripNameTextViewItem);
             tripDestinationTextView = itemView.findViewById(R.id.tripDestinationTextViewItem);
             tripRatingValue = itemView.findViewById(R.id.tripRatingItem);
             tripPriceTextView = itemView.findViewById(R.id.tripPriceItem);
+            tripFavoriteButton = itemView.findViewById(R.id.tripFavoriteButton);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
@@ -87,7 +89,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
                 }
                 return true;
             });
-
 
         }
     }

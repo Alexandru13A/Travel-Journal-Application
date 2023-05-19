@@ -36,7 +36,6 @@ public class UpdateTripActivity extends AppCompatActivity {
     public static final String EXTRA_PRICE = "com.example.travel_journal_project.activities.EXTRA_PRICE";
     public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
-    public static final String EXTRA_FAVORITE = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
 
 
     private EditText tripNameEditText;
@@ -47,7 +46,6 @@ public class UpdateTripActivity extends AppCompatActivity {
     private TextView tripPriceTextView;
     private EditText startTripDate;
     private EditText endTripDate;
-    private Boolean isFavorite;
     private Button updateButton;
     SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
     SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -59,7 +57,6 @@ public class UpdateTripActivity extends AppCompatActivity {
 
 
         updateButton = findViewById(R.id.createTripSaveButton);
-        isFavorite = false;
         tripNameEditText = findViewById(R.id.createTripNameEditText);
         tripDestinationEditText = findViewById(R.id.createTripDestinationEditText);
         tripTypeRadioGroup = findViewById(R.id.createRadioGroup);
@@ -94,8 +91,6 @@ public class UpdateTripActivity extends AppCompatActivity {
             tripTypeRadioGroup.getCheckedRadioButtonId();
             tripRatingBar.setRating(intent.getFloatExtra(EXTRA_RATING, 0));
             tripPriceTextView.setText(String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
-        } else {
-            setTitle("ADD TRIP");
         }
 
         Calendar calendar = Calendar.getInstance();

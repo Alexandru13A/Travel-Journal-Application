@@ -48,6 +48,22 @@ public class TripRepository {
     }
 
 
+    public void addToFavorite(long id, boolean value) {
+        executor.execute(() -> {
+            tripDao.update(id, value);
+        });
+    }
 
+    public LiveData<Trip> getFavoriteLiveData(long id) {
+        MutableLiveData<Trip> tripLiveData = new MutableLiveData<>();
+        executor.execute(() -> {
+            Trip trip = tripDao.getFavoriteLiveData(id).getValue();
+            tripLiveData.postValue(trip);
+        });
 
+        return tripLiveData;
+    }
 }
+
+
+
