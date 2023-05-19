@@ -149,7 +149,7 @@ public class UpdateTripActivity extends AppCompatActivity {
 
     }
 
-    //NU CRED CA MAI ESTE NEVOIE DE CONVERTERE PENTRU DATA , LE STOCHEZI CUM TI LE DA METODELE startTipDate si endTripDate
+  
     private void updateTrip() {
         String tripName = tripNameEditText.getText().toString();
         String tripDestination = tripDestinationEditText.getText().toString();
