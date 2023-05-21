@@ -67,7 +67,7 @@ public class ReadTripActivity extends AppCompatActivity {
         readTripType = findViewById(R.id.readTripType);
         tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.trip_add_close);
+
         Intent intent = getIntent();
         setTitle(intent.getStringExtra(EXTRA_NAME));
         String startingDate = intent.getStringExtra(EXTRA_START_DATE);

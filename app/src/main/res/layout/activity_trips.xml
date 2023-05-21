@@ -5,21 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".activities.TripsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trip_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/trip_item" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_trip"
-        android:contentDescription="Add button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="50dp"
-        android:src="@drawable/trip_add_button" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

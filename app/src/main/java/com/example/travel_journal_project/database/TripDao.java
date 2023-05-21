@@ -24,6 +24,8 @@ public interface TripDao {
     @Query("SELECT * FROM trip_table")
     LiveData<List<Trip>> getAllTrips();
 
+    @Query("SELECT * FROM trip_table WHERE tripIsFavorite = 1")
+    LiveData<List<Trip>> getFavoritesTrips();
 
 
     @Insert

@@ -21,6 +21,7 @@ public class TripViewModel extends AndroidViewModel {
 
     private TripRepository repository;
     private LiveData<List<Trip>> getAllTrips;
+    private LiveData<List<Trip>> getFavoritesTrips;
 
     private LiveData<Trip> favoriteLiveData;
 
@@ -29,6 +30,7 @@ public class TripViewModel extends AndroidViewModel {
         super(application);
         repository = new TripRepository(application);
         getAllTrips = repository.getAllTrips();
+        getFavoritesTrips = repository.getAllFavoritesTrips();
 
     }
 
@@ -52,15 +54,13 @@ public class TripViewModel extends AndroidViewModel {
         return getAllTrips;
     }
 
-
-    public void addToFavorite(long id, boolean value) {
-        repository.addToFavorite(id, value);
+    public LiveData<List<Trip>> allFavoritesTrips() {
+        return getFavoritesTrips;
     }
 
 
-    public LiveData<Trip> tripLiveData(long id) {
-        favoriteLiveData = repository.getFavoriteLiveData(id);
-        return favoriteLiveData;
+    public void addToFavorite(long id, boolean value) {
+        repository.addToFavorite(id, value);
     }
 
 

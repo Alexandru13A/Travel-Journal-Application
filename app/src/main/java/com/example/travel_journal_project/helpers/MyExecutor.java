@@ -1,4 +1,4 @@
-package com.example.travel_journal_project.database;
+package com.example.travel_journal_project.helpers;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

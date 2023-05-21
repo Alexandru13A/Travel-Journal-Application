@@ -1,7 +1,6 @@
 package com.example.travel_journal_project.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,7 +17,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.travel_journal_project.MainActivity;
+
 import com.example.travel_journal_project.R;
 
 import java.text.ParseException;
@@ -71,8 +69,8 @@ public class AddTripActivity extends AppCompatActivity {
         startTripDate = findViewById(R.id.selectStartingDateEditText);
         endTripDate = findViewById(R.id.selectEndingDateEditText);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.trip_add_close);
-        setTitle("ADD TRIP");
+
+
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -125,7 +123,7 @@ public class AddTripActivity extends AppCompatActivity {
 
         saveTripButton.setOnClickListener(v -> {
             saveNote();
-            Intent intent = new Intent(AddTripActivity.this, MainActivity.class);
+            Intent intent = new Intent(AddTripActivity.this, TripsActivity.class);
             startActivity(intent);
         });
 
@@ -161,14 +159,14 @@ public class AddTripActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_trip_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.saveTripButton) {
+        if (id == R.id.createTripSaveButton) {
             saveNote();
             return true;
         }
@@ -182,7 +180,7 @@ public class AddTripActivity extends AppCompatActivity {
         String tripType = tripTypePicker();
         int tripPrice = tripPricePicker.getProgress();
         String startTrip = String.valueOf(extractDateFromEditText(startTripDate));
-        String endTrip = String.valueOf(extractDateFromEditText(startTripDate));
+        String endTrip = String.valueOf(extractDateFromEditText(endTripDate));
         float tripRating = tripRatingBar.getRating();
         boolean favorite = isFavorite;
 

@@ -24,4 +24,31 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="create_trip">create trip</string>
     <string name="add_to_favorites">add to favorites</string>
+    <string name="add_button">Add button</string>
+    <string name="create">create</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+
+    <string name="sign_in">Sign In</string>
+    <string name="title_activity_main_screen">MainScreen</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_about_us">About us</string>
+    <string name="menu_contact">Contact us</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_sign_out">Sign out</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="help_and_feedback">Help &amp; feedback</string>
+    <string name="photo_uploaded">Photo Uploaded</string>
+    <string name="tripName">Trip name</string>
+    <string name="tripType">Trip type</string>
+    <string name="tripPrice">Trip price</string>
+    <string name="tripRating">Trip rating</string>
+    <string name="update_trip">Update trip</string>
+    <string name="add_trip">Add trip</string>
+    <string name="start_date_view_trip">Start Date:</string>
+    <string name="end_date_view_trip">End Date:</string>
+    <string name="facebook_app_id">1384115388440773</string>
+    <string name="facebook_login_protocol_scheme">fb1384115388440773</string>
+    <string name="travel_journale">TRAVEL JOURNALE</string>
+    <string name="about_us">WE ARE HERE TO HELP YOU ENJOYING YOUR TRAVELS</string>
 </resources>

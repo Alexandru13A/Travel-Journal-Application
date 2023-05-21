@@ -1,7 +1,6 @@
 package com.example.travel_journal_project.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -18,7 +17,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.travel_journal_project.MainActivity;
 import com.example.travel_journal_project.R;
 
 import java.text.ParseException;
@@ -66,7 +64,6 @@ public class UpdateTripActivity extends AppCompatActivity {
         startTripDate = findViewById(R.id.selectStartingDateEditText);
         endTripDate = findViewById(R.id.selectEndingDateEditText);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.trip_add_close);
 
         Intent intent = getIntent();
         setTitle("UPDATE TRIP");
@@ -143,20 +140,20 @@ public class UpdateTripActivity extends AppCompatActivity {
         });
         updateButton.setOnClickListener(v -> {
             updateTrip();
-            Intent intent1 = new Intent(UpdateTripActivity.this, MainActivity.class);
+            Intent intent1 = new Intent(UpdateTripActivity.this, TripsActivity.class);
             startActivity(intent1);
         });
 
     }
 
-  
+
     private void updateTrip() {
         String tripName = tripNameEditText.getText().toString();
         String tripDestination = tripDestinationEditText.getText().toString();
         String tripType = tripTypePicker();
         int tripPrice = tripPricePicker.getProgress();
         String startTrip = String.valueOf(extractDateFromEditText(startTripDate));
-        String endTrip = String.valueOf(extractDateFromEditText(startTripDate));
+        String endTrip = String.valueOf(extractDateFromEditText(endTripDate));
         float tripRating = tripRatingBar.getRating();
 
         long id = getIntent().getLongExtra(EXTRA_ID, -1);
@@ -211,14 +208,14 @@ public class UpdateTripActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_trip_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.menu.add_trip_menu) {
+        if (id == R.id.createTripSaveButton) {
             updateTrip();
             return true;
         }
