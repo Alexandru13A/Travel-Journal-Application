@@ -24,7 +24,7 @@
                 android:id="@+id/tripItemImage"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:src="@drawable/android" />
+                android:src="@drawable/imageholder" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

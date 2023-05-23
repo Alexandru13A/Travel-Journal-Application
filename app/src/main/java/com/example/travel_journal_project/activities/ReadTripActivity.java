@@ -1,8 +1,7 @@
 package com.example.travel_journal_project.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.travel_journal_project.R;
-import com.example.travel_journal_project.models.Trip;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -43,7 +41,7 @@ public class ReadTripActivity extends AppCompatActivity {
     private TextView readTripEndDate;
     private TextView readTripType;
     private FloatingActionButton tripFavoriteButton;
-
+    private Toolbar toolbar;
     private TripViewModel tripViewModel;
 
     private boolean tripIsFavorite;
@@ -55,6 +53,7 @@ public class ReadTripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_trip);
+        setSupportActionBar(toolbar);
 
         tripFavoriteButton = findViewById(R.id.tripFavoriteButton);
         readTripPhotoUrl = findViewById(R.id.readTripImage);

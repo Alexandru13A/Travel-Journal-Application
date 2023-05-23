@@ -2,11 +2,11 @@ package com.example.travel_journal_project.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 
 import com.example.travel_journal_project.R;
+import com.example.travel_journal_project.fragments.TripsFragment;
+import com.example.travel_journal_project.models.Trip;
+import com.example.travel_journal_project.viewmodel.TripViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,8 +38,8 @@ public class AddTripActivity extends AppCompatActivity {
     public static final String EXTRA_PRICE = "com.example.travel_journal_project.activities.EXTRA_PRICE";
     public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
-    public static final String EXTRA_FAVORITE = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
 
+    private TripViewModel tripViewModel;
 
     private EditText tripNameEditText;
     private EditText tripDestinationEditText;
@@ -56,7 +59,7 @@ public class AddTripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
-
+        tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
 
         saveTripButton = findViewById(R.id.createTripSaveButton);
         isFavorite = false;
@@ -68,8 +71,6 @@ public class AddTripActivity extends AppCompatActivity {
         tripPricePicker = findViewById(R.id.createPriceSeekBar);
         startTripDate = findViewById(R.id.selectStartingDateEditText);
         endTripDate = findViewById(R.id.selectEndingDateEditText);
-
-
 
 
         Calendar calendar = Calendar.getInstance();
@@ -123,8 +124,7 @@ public class AddTripActivity extends AppCompatActivity {
 
         saveTripButton.setOnClickListener(v -> {
             saveNote();
-            Intent intent = new Intent(AddTripActivity.this, TripsActivity.class);
-            startActivity(intent);
+            finish();
         });
 
 
@@ -157,11 +157,6 @@ public class AddTripActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -182,23 +177,16 @@ public class AddTripActivity extends AppCompatActivity {
         String startTrip = String.valueOf(extractDateFromEditText(startTripDate));
         String endTrip = String.valueOf(extractDateFromEditText(endTripDate));
         float tripRating = tripRatingBar.getRating();
-        boolean favorite = isFavorite;
+
 
         if (tripName.trim().isEmpty() || tripDestination.trim().isEmpty() || tripType.equals("") || tripPrice <= 0) {
             Toast.makeText(this, "Please fill all spaces", Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent data = new Intent();
-        data.putExtra(EXTRA_NAME, tripName);
-        data.putExtra(EXTRA_DESTINATION, tripDestination);
-        data.putExtra(EXTRA_TYPE, tripType);
-        data.putExtra(EXTRA_PRICE, tripPrice);
-        data.putExtra(EXTRA_START_DATE, startTrip);
-        data.putExtra(EXTRA_END_DATE, endTrip);
-        data.putExtra(EXTRA_RATING, tripRating);
-        data.putExtra(EXTRA_FAVORITE, favorite);
-        setResult(RESULT_OK, data);
-        finish();
+        Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice);
+        tripViewModel.insert(trip);
+        Toast.makeText(AddTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();
+
     }
 
 }

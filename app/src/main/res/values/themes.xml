@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/light_blue</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@android:color/darker_gray</item>
+        <item name="colorAccent">@color/darkgreen</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,9 +17,9 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MySeekBar" parent="Widget.AppCompat.SeekBar">
-        <item name="android:progressBackgroundTint">#B3E5FC</item>
-        <item name="android:progressTint">#0091EA</item>
-        <item name="android:colorControlActivated">#01579B</item>
+        <item name="android:progressBackgroundTint">#3D7718</item>
+        <item name="android:progressTint">#266388</item>
+        <item name="android:colorControlActivated">#166354</item>
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">

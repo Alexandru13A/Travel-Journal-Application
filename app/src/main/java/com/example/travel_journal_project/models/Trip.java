@@ -20,7 +20,7 @@ public class Trip {
     private String tripEndDate;
     private float tripRating;
     private int tripPrice;
-    private boolean tripIsFavorite ;
+    private boolean tripIsFavorite = false;
 
     private String tripPhotoUrl = "";
 

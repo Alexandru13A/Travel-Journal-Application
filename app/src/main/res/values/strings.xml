@@ -51,4 +51,7 @@
     <string name="facebook_login_protocol_scheme">fb1384115388440773</string>
     <string name="travel_journale">TRAVEL JOURNALE</string>
     <string name="about_us">WE ARE HERE TO HELP YOU ENJOYING YOUR TRAVELS</string>
+    <string name="separator">separator</string>
+    <string name="contact">Contact</string>
+    <string name="about_us_information">About us</string>
 </resources>

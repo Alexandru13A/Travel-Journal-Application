@@ -2,6 +2,7 @@ package com.example.travel_journal_project.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -17,7 +18,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travel_journal_project.MainActivity;
 import com.example.travel_journal_project.R;
+import com.example.travel_journal_project.models.Trip;
+import com.example.travel_journal_project.viewmodel.TripViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,6 +49,8 @@ public class UpdateTripActivity extends AppCompatActivity {
     private EditText startTripDate;
     private EditText endTripDate;
     private Button updateButton;
+
+    private TripViewModel tripViewModel;
     SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
     SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
@@ -52,7 +58,7 @@ public class UpdateTripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
-
+        tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
 
         updateButton = findViewById(R.id.createTripSaveButton);
         tripNameEditText = findViewById(R.id.createTripNameEditText);
@@ -140,7 +146,7 @@ public class UpdateTripActivity extends AppCompatActivity {
         });
         updateButton.setOnClickListener(v -> {
             updateTrip();
-            Intent intent1 = new Intent(UpdateTripActivity.this, TripsActivity.class);
+            Intent intent1 = new Intent(UpdateTripActivity.this, MainActivity.class);
             startActivity(intent1);
         });
 
@@ -160,22 +166,19 @@ public class UpdateTripActivity extends AppCompatActivity {
 
         if (tripName.trim().isEmpty() || tripDestination.trim().isEmpty() || tripType.equals("") || tripPrice <= 0 || startTrip.trim().isEmpty() || endTrip.trim().isEmpty()) {
             Toast.makeText(this, "Please fill all spaces", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent data = new Intent();
-        data.putExtra(EXTRA_NAME, tripName);
-        data.putExtra(EXTRA_DESTINATION, tripDestination);
-        data.putExtra(EXTRA_TYPE, tripType);
-        data.putExtra(EXTRA_PRICE, tripPrice);
-        data.putExtra(EXTRA_START_DATE, startTrip);
-        data.putExtra(EXTRA_END_DATE, endTrip);
-        data.putExtra(EXTRA_RATING, tripRating);
 
-        if (id != -1) {
-            data.putExtra(EXTRA_ID, id);
+        } else if (id == -1) {
+            Toast.makeText(this, "NOTE CAN'T BE UPDATED", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice);
+            trip.setTripId(id);
+            tripViewModel.updateTrip(trip);
+            Toast.makeText(UpdateTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();
+
+            finish();
         }
-        setResult(RESULT_OK, data);
-        finish();
     }
 
 
@@ -206,11 +209,6 @@ public class UpdateTripActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
