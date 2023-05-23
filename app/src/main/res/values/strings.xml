@@ -54,4 +54,6 @@
     <string name="separator">separator</string>
     <string name="contact">Contact</string>
     <string name="about_us_information">About us</string>
+    <string name="back_button">back button</string>
+    <string name="text">Text</string>
 </resources>

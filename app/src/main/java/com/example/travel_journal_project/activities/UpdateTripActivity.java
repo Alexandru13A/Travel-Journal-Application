@@ -2,13 +2,14 @@ package com.example.travel_journal_project.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -49,6 +50,7 @@ public class UpdateTripActivity extends AppCompatActivity {
     private EditText startTripDate;
     private EditText endTripDate;
     private Button updateButton;
+    private TextView activityNameToolbar;
 
     private TripViewModel tripViewModel;
     SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
@@ -58,21 +60,15 @@ public class UpdateTripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
-        tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
-
-        updateButton = findViewById(R.id.createTripSaveButton);
-        tripNameEditText = findViewById(R.id.createTripNameEditText);
-        tripDestinationEditText = findViewById(R.id.createTripDestinationEditText);
-        tripTypeRadioGroup = findViewById(R.id.createRadioGroup);
-        tripRatingBar = findViewById(R.id.createRatingBar);
-        tripPriceTextView = findViewById(R.id.tripPriceTextView);
-        tripPricePicker = findViewById(R.id.createPriceSeekBar);
-        startTripDate = findViewById(R.id.selectStartingDateEditText);
-        endTripDate = findViewById(R.id.selectEndingDateEditText);
+        setToolbar();
+        componentsInitialization();
+        fillTheFields();
 
 
+    }
+
+    public void fillTheFields() {
         Intent intent = getIntent();
-        setTitle("UPDATE TRIP");
         if (intent.hasExtra(EXTRA_ID)) {
             String startingDate = intent.getStringExtra(EXTRA_START_DATE);
             String endingDate = intent.getStringExtra(EXTRA_END_DATE);
@@ -149,7 +145,6 @@ public class UpdateTripActivity extends AppCompatActivity {
             Intent intent1 = new Intent(UpdateTripActivity.this, MainActivity.class);
             startActivity(intent1);
         });
-
     }
 
 
@@ -219,6 +214,33 @@ public class UpdateTripActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    public void onBackButtonClicked(View view) {
+        onBackPressed();
+        Toast.makeText(this, "Trip not updated", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        activityNameToolbar.setText("Update the Trip");
+
+    }
+
+    public void componentsInitialization() {
+        tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
+        activityNameToolbar = findViewById(R.id.activity_name_toolbar);
+        updateButton = findViewById(R.id.createTripSaveButton);
+        tripNameEditText = findViewById(R.id.createTripNameEditText);
+        tripDestinationEditText = findViewById(R.id.createTripDestinationEditText);
+        tripTypeRadioGroup = findViewById(R.id.createRadioGroup);
+        tripRatingBar = findViewById(R.id.createRatingBar);
+        tripPriceTextView = findViewById(R.id.tripPriceTextView);
+        tripPricePicker = findViewById(R.id.createPriceSeekBar);
+        startTripDate = findViewById(R.id.selectStartingDateEditText);
+        endTripDate = findViewById(R.id.selectEndingDateEditText);
     }
 
 

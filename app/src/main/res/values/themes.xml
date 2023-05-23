@@ -32,4 +32,16 @@
         <item name="android:textSize">0.1sp</item>
     </style>
 
+    <style name="AppTheme.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@drawable/side_nav_bar</item>
+        <item name="android:theme">@style/AppTheme.NoActionBar</item>
+        <item name="android:titleTextAppearance">@style/AppTheme.Toolbar.TitleText</item>
+    </style>
+
+    <style name="AppTheme.Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">0sp</item>
+    </style>
+
 </resources>

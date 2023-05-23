@@ -1,11 +1,14 @@
 package com.example.travel_journal_project.activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,8 +43,9 @@ public class ReadTripActivity extends AppCompatActivity {
     private TextView readTripStartDate;
     private TextView readTripEndDate;
     private TextView readTripType;
+    private TextView tripNameToolbar;
     private FloatingActionButton tripFavoriteButton;
-    private Toolbar toolbar;
+
     private TripViewModel tripViewModel;
 
     private boolean tripIsFavorite;
@@ -53,8 +57,12 @@ public class ReadTripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_trip);
-        setSupportActionBar(toolbar);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        tripNameToolbar = findViewById(R.id.trip_name_toolbar);
         tripFavoriteButton = findViewById(R.id.tripFavoriteButton);
         readTripPhotoUrl = findViewById(R.id.readTripImage);
         readTripName = findViewById(R.id.readTripName);
@@ -68,7 +76,7 @@ public class ReadTripActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        setTitle(intent.getStringExtra(EXTRA_NAME));
+        tripNameToolbar.setText(intent.getStringExtra(EXTRA_NAME));
         String startingDate = intent.getStringExtra(EXTRA_START_DATE);
         String endingDate = intent.getStringExtra(EXTRA_END_DATE);
         try {
@@ -123,4 +131,7 @@ public class ReadTripActivity extends AppCompatActivity {
     }
 
 
+    public void onBackButtonClicked(View view) {
+        onBackPressed();
+    }
 }

@@ -2,12 +2,14 @@ package com.example.travel_journal_project.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -31,13 +33,6 @@ import java.util.Locale;
 
 public class AddTripActivity extends AppCompatActivity {
 
-    public static final String EXTRA_NAME = "com.example.travel_journal_project.activities.EXTRA_NAME";
-    public static final String EXTRA_DESTINATION = "com.example.travel_journal_project.activities.EXTRA_DESTINATION";
-    public static final String EXTRA_TYPE = "com.example.travel_journal_project.activities.EXTRA_TYPE";
-    public static final String EXTRA_RATING = "com.example.travel_journal_project.activities.EXTRA_RATING";
-    public static final String EXTRA_PRICE = "com.example.travel_journal_project.activities.EXTRA_PRICE";
-    public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
 
     private TripViewModel tripViewModel;
 
@@ -51,7 +46,7 @@ public class AddTripActivity extends AppCompatActivity {
     private EditText endTripDate;
     private Boolean isFavorite;
 
-
+    private TextView activityNameToolbar;
     private Button saveTripButton;
 
 
@@ -60,6 +55,13 @@ public class AddTripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
         tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
+        activityNameToolbar = findViewById(R.id.activity_name_toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        activityNameToolbar.setText("Create a new Trip");
+
 
         saveTripButton = findViewById(R.id.createTripSaveButton);
         isFavorite = false;
@@ -187,6 +189,11 @@ public class AddTripActivity extends AppCompatActivity {
         tripViewModel.insert(trip);
         Toast.makeText(AddTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void onBackButtonClicked(View view) {
+        onBackPressed();
+        Toast.makeText(this, "Trip not saved", Toast.LENGTH_SHORT).show();
     }
 
 }
