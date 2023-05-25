@@ -156,6 +156,7 @@ public class UpdateTripActivity extends AppCompatActivity {
         String startTrip = String.valueOf(extractDateFromEditText(startTripDate));
         String endTrip = String.valueOf(extractDateFromEditText(endTripDate));
         float tripRating = tripRatingBar.getRating();
+        String imageUrl = "";
 
         long id = getIntent().getLongExtra(EXTRA_ID, -1);
 
@@ -167,7 +168,7 @@ public class UpdateTripActivity extends AppCompatActivity {
 
         } else {
 
-            Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice);
+            Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice, imageUrl);
             trip.setTripId(id);
             tripViewModel.updateTrip(trip);
             Toast.makeText(UpdateTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();

@@ -29,7 +29,7 @@ public class Trip {
     }
 
     @Ignore
-    public Trip(String tripName, String tripDestination, String tripType, String tripStartDate, String tripEndDate, float tripRating, int tripPrice) {
+    public Trip(String tripName, String tripDestination, String tripType, String tripStartDate, String tripEndDate, float tripRating, int tripPrice,String imageUrl) {
         this.tripName = tripName;
         this.tripDestination = tripDestination;
         this.tripType = tripType;
@@ -37,6 +37,7 @@ public class Trip {
         this.tripEndDate = tripEndDate;
         this.tripRating = tripRating;
         this.tripPrice = tripPrice;
+        this.tripPhotoUrl = imageUrl;
 
     }
 

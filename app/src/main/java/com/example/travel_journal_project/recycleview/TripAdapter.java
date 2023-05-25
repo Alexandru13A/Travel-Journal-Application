@@ -1,5 +1,6 @@
 package com.example.travel_journal_project.recycleview;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,9 @@ import com.example.travel_journal_project.models.Trip;
 import com.example.travel_journal_project.repositories.TripRepository;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
         holder.tripDestinationTextView.setText(currentTrip.getTripDestination());
         holder.tripPriceTextView.setText(String.valueOf(currentTrip.getTripPrice()) + " € ");
         holder.tripRatingValue.setText(String.valueOf(currentTrip.getTripRating()) + " ✪ ");
+        String image = currentTrip.getTripPhotoUrl();
+        File fileImage = new File(image);
 
 
     }
@@ -57,6 +62,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
     public Trip getTripAt(int position) {
         return trips.get(position);
     }
+
 
     class TripHolder extends RecyclerView.ViewHolder {
         private FloatingActionButton tripFavoriteButton;

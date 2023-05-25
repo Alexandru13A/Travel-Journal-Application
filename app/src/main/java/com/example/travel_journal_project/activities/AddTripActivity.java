@@ -1,18 +1,23 @@
 package com.example.travel_journal_project.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
@@ -21,9 +26,9 @@ import android.widget.Toast;
 
 
 import com.example.travel_journal_project.R;
-import com.example.travel_journal_project.fragments.TripsFragment;
 import com.example.travel_journal_project.models.Trip;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +53,10 @@ public class AddTripActivity extends AppCompatActivity {
 
     private TextView activityNameToolbar;
     private Button saveTripButton;
-
+    private ImageView tripItemImage;
+    private Button tripGalleryButton;
+    public static final int REQUEST_PICK_IMAGE = 1;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +69,9 @@ public class AddTripActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         activityNameToolbar.setText("Create a new Trip");
+        tripItemImage = findViewById(R.id.tripItemImage);
 
-
+        tripGalleryButton = findViewById(R.id.tripGalleryButton);
         saveTripButton = findViewById(R.id.createTripSaveButton);
         isFavorite = false;
         tripNameEditText = findViewById(R.id.createTripNameEditText);
@@ -124,6 +133,10 @@ public class AddTripActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
 
+        tripGalleryButton.setOnClickListener(v -> {
+            openGallery();
+        });
+
         saveTripButton.setOnClickListener(v -> {
             saveNote();
             finish();
@@ -159,18 +172,6 @@ public class AddTripActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.createTripSaveButton) {
-            saveNote();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
-
     private void saveNote() {
         String tripName = tripNameEditText.getText().toString();
         String tripDestination = tripDestinationEditText.getText().toString();
@@ -179,13 +180,12 @@ public class AddTripActivity extends AppCompatActivity {
         String startTrip = String.valueOf(extractDateFromEditText(startTripDate));
         String endTrip = String.valueOf(extractDateFromEditText(endTripDate));
         float tripRating = tripRatingBar.getRating();
-
-
+        String imageUrl = imageUri != null ? getImagePath(imageUri) : null;
         if (tripName.trim().isEmpty() || tripDestination.trim().isEmpty() || tripType.equals("") || tripPrice <= 0) {
             Toast.makeText(this, "Please fill all spaces", Toast.LENGTH_SHORT).show();
             return;
         }
-        Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice);
+        Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice, imageUrl);
         tripViewModel.insert(trip);
         Toast.makeText(AddTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();
 
@@ -196,4 +196,30 @@ public class AddTripActivity extends AppCompatActivity {
         Toast.makeText(this, "Trip not saved", Toast.LENGTH_SHORT).show();
     }
 
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, REQUEST_PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+            Picasso.get().load(imageUri).into(tripItemImage);
+        }
+    }
+
+    private String getImagePath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String imagePath = cursor.getString(columnIndex);
+            cursor.close();
+            return imagePath;
+        }
+        return uri.getPath();
+    }
 }

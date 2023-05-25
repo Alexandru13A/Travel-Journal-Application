@@ -1,14 +1,19 @@
 package com.example.travel_journal_project.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +22,10 @@ import android.widget.Toast;
 import com.example.travel_journal_project.R;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +43,7 @@ public class ReadTripActivity extends AppCompatActivity {
     public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
     public static final String EXTRA_FAVORITE = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
+    private static final String API_KEY = "a9e4e5255b81b655131819961e4482a6";
 
     private ImageView readTripPhotoUrl;
     private TextView readTripName;
@@ -50,6 +60,10 @@ public class ReadTripActivity extends AppCompatActivity {
 
     private boolean tripIsFavorite;
 
+    private TextView locationTemperature;
+    private TextView weatherDescription;
+    private ImageView descriptionImageView;
+
     private final SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
     private final SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
@@ -61,6 +75,9 @@ public class ReadTripActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        locationTemperature = findViewById(R.id.locationTemperature);
+        weatherDescription = findViewById(R.id.weatherDescription);
+        descriptionImageView = findViewById(R.id.descriptionImageView);
 
         tripNameToolbar = findViewById(R.id.trip_name_toolbar);
         tripFavoriteButton = findViewById(R.id.tripFavoriteButton);
@@ -111,6 +128,7 @@ public class ReadTripActivity extends AppCompatActivity {
             }
         });
 
+        showTemperature();
     }
 
     public void addRemoveFromFavorites(long id) {
@@ -133,5 +151,47 @@ public class ReadTripActivity extends AppCompatActivity {
 
     public void onBackButtonClicked(View view) {
         onBackPressed();
+    }
+
+    public void showTemperature() {
+        String url = "https://api.openweathermap.org/data/2.5/weather?id=" + readTripDestination + "&appid=" + API_KEY + "&units=Metric";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject jsonObject = response.getJSONObject("main");
+                    JSONArray jsonArray = response.getJSONArray("weather");
+                    JSONObject object = jsonArray.getJSONObject(0);
+                    double temperatureDouble = jsonObject.getDouble("temp");
+                    String description = object.getString("main");
+
+
+                    double temperatureRounded = (int) Math.round(temperatureDouble);
+                    int temperatureInt = (int) temperatureRounded;
+                    String temp = String.valueOf(temperatureInt + "°C");
+
+                    locationTemperature.setText(temp);
+
+                    if (description.contains("Cloud")) {
+                        descriptionImageView.setImageResource(R.drawable.ic_cloud);
+                        weatherDescription.setText(description);
+                    } else if (description.contains("Clear")) {
+                        descriptionImageView.setImageResource(R.drawable.ic_sun);
+                        weatherDescription.setText(description);
+                    } else if (description.contains("Rain")) {
+                        descriptionImageView.setImageResource(R.drawable.ic_rain);
+                        weatherDescription.setText(description);
+                    } else if (description.contains("Snow")) {
+                        descriptionImageView.setImageResource(R.drawable.ic_snow);
+                        weatherDescription.setText(description);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, error -> error.printStackTrace());
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
     }
 }

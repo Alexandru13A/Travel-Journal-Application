@@ -7,6 +7,7 @@
     tools:context=".activities.AddTripActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -145,7 +146,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.725" />
+        app:layout_constraintVertical_bias="0.654" />
 
     <RadioGroup
         android:id="@+id/createRadioGroup"
@@ -185,6 +186,7 @@
 
     </RadioGroup>
 
+
     <Button
         android:id="@+id/createTripSaveButton"
         android:layout_width="wrap_content"
@@ -195,13 +197,12 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.916" />
-
+        app:layout_constraintVertical_bias="0.976" />
 
     <SeekBar
         android:id="@+id/createPriceSeekBar"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
+        android:layout_width="281dp"
+        android:layout_height="13dp"
         android:max="10000"
         android:progress="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -209,7 +210,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintVertical_bias="0.575" />
 
     <TextView
         android:id="@+id/tripPriceTextView"
@@ -221,7 +222,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.588" />
+        app:layout_constraintVertical_bias="0.537" />
 
     <TextView
         android:id="@+id/tripMoney"
@@ -233,8 +234,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/tripGalleryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/open_gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintVertical_bias="0.8" />
+
+    <ImageView
+        android:id="@+id/tripItemImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.334"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.86"
+        app:srcCompat="@drawable/imageholder" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
