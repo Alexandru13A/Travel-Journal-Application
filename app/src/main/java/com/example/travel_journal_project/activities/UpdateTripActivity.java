@@ -40,6 +40,7 @@ public class UpdateTripActivity extends AppCompatActivity {
     public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
 
+    public static final String EXTRA_URL = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
 
     private EditText tripNameEditText;
     private EditText tripDestinationEditText;
@@ -59,7 +60,9 @@ public class UpdateTripActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_trip);
+        setContentView(R.layout.activity_update_trip);
+
+
         setToolbar();
         componentsInitialization();
         fillTheFields();
@@ -69,6 +72,7 @@ public class UpdateTripActivity extends AppCompatActivity {
 
     public void fillTheFields() {
         Intent intent = getIntent();
+        activityNameToolbar.setText("Update");
         if (intent.hasExtra(EXTRA_ID)) {
             String startingDate = intent.getStringExtra(EXTRA_START_DATE);
             String endingDate = intent.getStringExtra(EXTRA_END_DATE);
@@ -91,6 +95,7 @@ public class UpdateTripActivity extends AppCompatActivity {
             tripRatingBar.setRating(intent.getFloatExtra(EXTRA_RATING, 0));
             tripPriceTextView.setText(String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
         }
+
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -223,16 +228,16 @@ public class UpdateTripActivity extends AppCompatActivity {
     }
 
     public void setToolbar() {
+        activityNameToolbar = findViewById(R.id.activity_name_toolbar);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        activityNameToolbar.setText("Update the Trip");
+        activityNameToolbar.setText("Create a new Trip");
 
     }
 
     public void componentsInitialization() {
         tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
-        activityNameToolbar = findViewById(R.id.activity_name_toolbar);
         updateButton = findViewById(R.id.createTripSaveButton);
         tripNameEditText = findViewById(R.id.createTripNameEditText);
         tripDestinationEditText = findViewById(R.id.createTripDestinationEditText);

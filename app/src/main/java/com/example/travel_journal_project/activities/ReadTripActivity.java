@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,7 +44,8 @@ public class ReadTripActivity extends AppCompatActivity {
     public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
     public static final String EXTRA_FAVORITE = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
-    private static final String API_KEY = "a9e4e5255b81b655131819961e4482a6";
+    public static final String EXTRA_URL = "com.example.travel_journal_project.activities.EXTRA_URL";
+    private static final String API_KEY = "e4b67f36ff0d78945ab3b63ddcb777de";
 
     private ImageView readTripPhotoUrl;
     private TextView readTripName;
@@ -79,6 +81,7 @@ public class ReadTripActivity extends AppCompatActivity {
         weatherDescription = findViewById(R.id.weatherDescription);
         descriptionImageView = findViewById(R.id.descriptionImageView);
 
+        readTripPhotoUrl = findViewById(R.id.readTripImage);
         tripNameToolbar = findViewById(R.id.trip_name_toolbar);
         tripFavoriteButton = findViewById(R.id.tripFavoriteButton);
         readTripPhotoUrl = findViewById(R.id.readTripImage);
@@ -108,8 +111,10 @@ public class ReadTripActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+        String url = intent.getStringExtra(EXTRA_URL);
+        readTripPhotoUrl.setImageURI(Uri.parse(url));
         readTripName.setText(intent.getStringExtra(EXTRA_NAME));
-        readTripDestination.setText(intent.getStringExtra(EXTRA_DESTINATION));
+        readTripDestination.setText(intent.getStringExtra(EXTRA_DESTINATION).toString());
         readTripType.setText(intent.getStringExtra(EXTRA_TYPE));
         readTripRating.setText(intent.getFloatExtra(EXTRA_RATING, 0) + " ✪ ");
         readTripPrice.setText(intent.getIntExtra(EXTRA_PRICE, 0) + " € ");
@@ -128,7 +133,7 @@ public class ReadTripActivity extends AppCompatActivity {
             }
         });
 
-        showTemperature();
+        showTemperature(intent.getStringExtra(EXTRA_DESTINATION).trim());
     }
 
     public void addRemoveFromFavorites(long id) {
@@ -153,8 +158,9 @@ public class ReadTripActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    public void showTemperature() {
-        String url = "https://api.openweathermap.org/data/2.5/weather?id=" + readTripDestination + "&appid=" + API_KEY + "&units=Metric";
+
+    public void showTemperature(String cityName) {
+        String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&APPID=" + API_KEY + "&units=Metric";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

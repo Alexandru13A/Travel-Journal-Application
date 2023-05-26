@@ -57,4 +57,7 @@
     <string name="back_button">back button</string>
     <string name="text">Text</string>
     <string name="open_gallery">Open Gallery</string>
+    <string name="author_name">Pacioianu Alexandru</string>
+
+
 </resources>
