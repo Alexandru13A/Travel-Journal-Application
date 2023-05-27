@@ -1,18 +1,23 @@
 package com.example.travel_journal_project.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
@@ -23,6 +28,7 @@ import com.example.travel_journal_project.MainActivity;
 import com.example.travel_journal_project.R;
 import com.example.travel_journal_project.models.Trip;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,14 +54,19 @@ public class UpdateTripActivity extends AppCompatActivity {
     private RatingBar tripRatingBar;
     private SeekBar tripPricePicker;
     private TextView tripPriceTextView;
-    private EditText startTripDate;
-    private EditText endTripDate;
+    private TextView startTripDate;
+    private TextView endTripDate;
     private Button updateButton;
     private TextView activityNameToolbar;
+    private ImageView tripItemImage;
+    private Button tripGalleryButton;
 
     private TripViewModel tripViewModel;
     SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
     SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+    public static final int REQUEST_PICK_IMAGE = 1;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +83,7 @@ public class UpdateTripActivity extends AppCompatActivity {
 
     public void fillTheFields() {
         Intent intent = getIntent();
-        activityNameToolbar.setText("Update");
+        activityNameToolbar.setText(R.string.update_activity_name);
         if (intent.hasExtra(EXTRA_ID)) {
             String startingDate = intent.getStringExtra(EXTRA_START_DATE);
             String endingDate = intent.getStringExtra(EXTRA_END_DATE);
@@ -94,6 +105,7 @@ public class UpdateTripActivity extends AppCompatActivity {
             tripTypeRadioGroup.getCheckedRadioButtonId();
             tripRatingBar.setRating(intent.getFloatExtra(EXTRA_RATING, 0));
             tripPriceTextView.setText(String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
+            tripItemImage = findViewById(R.id.tripItemImage);
         }
 
 
@@ -150,6 +162,10 @@ public class UpdateTripActivity extends AppCompatActivity {
             Intent intent1 = new Intent(UpdateTripActivity.this, MainActivity.class);
             startActivity(intent1);
         });
+
+        tripGalleryButton.setOnClickListener(v -> {
+            openGallery();
+        });
     }
 
 
@@ -161,7 +177,7 @@ public class UpdateTripActivity extends AppCompatActivity {
         String startTrip = String.valueOf(extractDateFromEditText(startTripDate));
         String endTrip = String.valueOf(extractDateFromEditText(endTripDate));
         float tripRating = tripRatingBar.getRating();
-        String imageUrl = "";
+        String imageUrl = imageUri != null ? getImagePath(imageUri) : null;
 
         long id = getIntent().getLongExtra(EXTRA_ID, -1);
 
@@ -199,7 +215,7 @@ public class UpdateTripActivity extends AppCompatActivity {
         return tripTypeString;
     }
 
-    private Date extractDateFromEditText(EditText tripDate) {
+    private Date extractDateFromEditText(TextView tripDate) {
         try {
             String dateStr = tripDate.getText().toString();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -237,6 +253,8 @@ public class UpdateTripActivity extends AppCompatActivity {
     }
 
     public void componentsInitialization() {
+        tripGalleryButton = findViewById(R.id.tripGalleryButton);
+        tripItemImage = findViewById(R.id.tripItemImage);
         tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
         updateButton = findViewById(R.id.createTripSaveButton);
         tripNameEditText = findViewById(R.id.createTripNameEditText);
@@ -249,5 +267,31 @@ public class UpdateTripActivity extends AppCompatActivity {
         endTripDate = findViewById(R.id.selectEndingDateEditText);
     }
 
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, REQUEST_PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+            Picasso.get().load(imageUri).into(tripItemImage);
+        }
+    }
+
+    private String getImagePath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String imagePath = cursor.getString(columnIndex);
+            cursor.close();
+            return imagePath;
+        }
+        return uri.getPath();
+    }
 
 }

@@ -4,16 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,7 +19,9 @@ import android.widget.Toast;
 
 import com.example.travel_journal_project.R;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,66 +73,13 @@ public class ReadTripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_trip);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        locationTemperature = findViewById(R.id.locationTemperature);
-        weatherDescription = findViewById(R.id.weatherDescription);
-        descriptionImageView = findViewById(R.id.descriptionImageView);
 
-        readTripPhotoUrl = findViewById(R.id.readTripImage);
-        tripNameToolbar = findViewById(R.id.trip_name_toolbar);
-        tripFavoriteButton = findViewById(R.id.tripFavoriteButton);
-        readTripPhotoUrl = findViewById(R.id.readTripImage);
-        readTripName = findViewById(R.id.readTripName);
-        readTripDestination = findViewById(R.id.readTripDestination);
-        readTripPrice = findViewById(R.id.readTripPrice);
-        readTripRating = findViewById(R.id.readTripRating);
-        readTripStartDate = findViewById(R.id.readItemStartDate);
-        readTripEndDate = findViewById(R.id.readTripEndDate);
-        readTripType = findViewById(R.id.readTripType);
-        tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
+        setToolbar();
+        setComponents();
+        fillFields();
+        setTemperature();
 
 
-        Intent intent = getIntent();
-        tripNameToolbar.setText(intent.getStringExtra(EXTRA_NAME));
-        String startingDate = intent.getStringExtra(EXTRA_START_DATE);
-        String endingDate = intent.getStringExtra(EXTRA_END_DATE);
-        try {
-            Date startDate = inputDateFormat.parse(startingDate);
-            String formatStartDate = outputDateFormat.format(startDate);
-
-            Date endDate = inputDateFormat.parse(endingDate);
-            String formatEndingDate = outputDateFormat.format(endDate);
-            readTripStartDate.setText(formatStartDate);
-            readTripEndDate.setText(formatEndingDate);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = intent.getStringExtra(EXTRA_URL);
-        readTripPhotoUrl.setImageURI(Uri.parse(url));
-        readTripName.setText(intent.getStringExtra(EXTRA_NAME));
-        readTripDestination.setText(intent.getStringExtra(EXTRA_DESTINATION).toString());
-        readTripType.setText(intent.getStringExtra(EXTRA_TYPE));
-        readTripRating.setText(intent.getFloatExtra(EXTRA_RATING, 0) + " ✪ ");
-        readTripPrice.setText(intent.getIntExtra(EXTRA_PRICE, 0) + " € ");
-        tripIsFavorite = intent.getBooleanExtra(EXTRA_FAVORITE, false);
-        if (tripIsFavorite == true) {
-            tripFavoriteButton.setImageResource(R.drawable.is_favorite);
-        } else {
-            tripFavoriteButton.setImageResource(R.drawable.not_favorite);
-        }
-        long id = intent.getLongExtra(EXTRA_ID, 0);
-
-        tripFavoriteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addRemoveFromFavorites(id);
-            }
-        });
-
-        showTemperature(intent.getStringExtra(EXTRA_DESTINATION).trim());
     }
 
     public void addRemoveFromFavorites(long id) {
@@ -156,6 +102,80 @@ public class ReadTripActivity extends AppCompatActivity {
 
     public void onBackButtonClicked(View view) {
         onBackPressed();
+    }
+
+    public void fillFields() {
+
+        Intent intent = getIntent();
+        tripNameToolbar.setText(intent.getStringExtra(EXTRA_NAME));
+        String startingDate = intent.getStringExtra(EXTRA_START_DATE);
+        String endingDate = intent.getStringExtra(EXTRA_END_DATE);
+        try {
+            Date startDate = inputDateFormat.parse(startingDate);
+            String formatStartDate = outputDateFormat.format(startDate);
+
+            Date endDate = inputDateFormat.parse(endingDate);
+            String formatEndingDate = outputDateFormat.format(endDate);
+            readTripStartDate.setText(formatStartDate);
+            readTripEndDate.setText(formatEndingDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = intent.getStringExtra(EXTRA_URL);
+        if (url != null ) {
+            Picasso.get().load(url).into(readTripPhotoUrl);
+        } else {
+            Picasso.get().load(R.drawable.imageholder).into(readTripPhotoUrl);
+        }
+        readTripName.setText(intent.getStringExtra(EXTRA_NAME));
+        readTripDestination.setText(intent.getStringExtra(EXTRA_DESTINATION).toString());
+        readTripType.setText(intent.getStringExtra(EXTRA_TYPE));
+        readTripRating.setText(intent.getFloatExtra(EXTRA_RATING, 0) + " ✪ ");
+        readTripPrice.setText(intent.getIntExtra(EXTRA_PRICE, 0) + " € ");
+        tripIsFavorite = intent.getBooleanExtra(EXTRA_FAVORITE, false);
+        if (tripIsFavorite == true) {
+            tripFavoriteButton.setImageResource(R.drawable.is_favorite);
+        } else {
+            tripFavoriteButton.setImageResource(R.drawable.not_favorite);
+        }
+        long id = intent.getLongExtra(EXTRA_ID, 0);
+        showTemperature(intent.getStringExtra(EXTRA_DESTINATION).trim());
+
+
+        tripFavoriteButton.setOnClickListener(v -> addRemoveFromFavorites(id));
+
+
+    }
+
+
+    public void setTemperature() {
+        locationTemperature = findViewById(R.id.locationTemperature);
+        weatherDescription = findViewById(R.id.weatherDescription);
+        descriptionImageView = findViewById(R.id.descriptionImageView);
+
+    }
+
+    public void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    public void setComponents() {
+
+        readTripPhotoUrl = findViewById(R.id.readTripImage);
+        tripNameToolbar = findViewById(R.id.trip_name_toolbar);
+        tripFavoriteButton = findViewById(R.id.tripFavoriteButton);
+        readTripPhotoUrl = findViewById(R.id.readTripImage);
+        readTripName = findViewById(R.id.readTripName);
+        readTripDestination = findViewById(R.id.readTripDestination);
+        readTripPrice = findViewById(R.id.readTripPrice);
+        readTripRating = findViewById(R.id.readTripRating);
+        readTripStartDate = findViewById(R.id.readItemStartDate);
+        readTripEndDate = findViewById(R.id.readTripEndDate);
+        readTripType = findViewById(R.id.readTripType);
+        tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
     }
 
 

@@ -47,7 +47,7 @@
     <string name="add_trip">Add trip</string>
     <string name="start_date_view_trip">Start Date:</string>
     <string name="end_date_view_trip">End Date:</string>
-    <string name="facebook_app_id">1384115388440773</string>
+    <string name="facebook_app_id">792085102295775</string>
     <string name="facebook_login_protocol_scheme">fb1384115388440773</string>
     <string name="travel_journale">TRAVEL JOURNALE</string>
     <string name="about_us">WE ARE HERE TO HELP YOU ENJOYING YOUR TRAVELS</string>
@@ -58,6 +58,10 @@
     <string name="text">Text</string>
     <string name="open_gallery">Open Gallery</string>
     <string name="author_name">Pacioianu Alexandru</string>
+    <string name="share_trip">Share trip</string>
+    <string name="update_activity_name">Update</string>
+    <string name="user_name">Pacioianu Alexandru</string>
+    <string name="user_email">pacioianu.alexandru13@gmail.com</string>
 
 
 </resources>

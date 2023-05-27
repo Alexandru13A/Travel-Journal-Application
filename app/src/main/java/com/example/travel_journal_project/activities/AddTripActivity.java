@@ -47,8 +47,8 @@ public class AddTripActivity extends AppCompatActivity {
     private RatingBar tripRatingBar;
     private SeekBar tripPricePicker;
     private TextView tripPriceTextView;
-    private EditText startTripDate;
-    private EditText endTripDate;
+    private TextView startTripDate;
+    private TextView endTripDate;
     private Boolean isFavorite;
 
     private TextView activityNameToolbar;
@@ -161,7 +161,7 @@ public class AddTripActivity extends AppCompatActivity {
         return tripTypeString;
     }
 
-    private Date extractDateFromEditText(EditText tripDate) {
+    private Date extractDateFromEditText(TextView tripDate) {
         try {
             String dateStr = tripDate.getText().toString();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -183,12 +183,12 @@ public class AddTripActivity extends AppCompatActivity {
         String imageUrl = imageUri != null ? getImagePath(imageUri) : null;
         if (tripName.trim().isEmpty() || tripDestination.trim().isEmpty() || tripType.equals("") || tripPrice <= 0) {
             Toast.makeText(this, "Please fill all spaces", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice, imageUrl);
-        tripViewModel.insert(trip);
-        Toast.makeText(AddTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();
 
+        } else {
+            Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice, imageUrl);
+            tripViewModel.insert(trip);
+            Toast.makeText(AddTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onBackButtonClicked(View view) {
