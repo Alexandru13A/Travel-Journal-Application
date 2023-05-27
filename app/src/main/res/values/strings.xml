@@ -62,6 +62,8 @@
     <string name="update_activity_name">Update</string>
     <string name="user_name">Pacioianu Alexandru</string>
     <string name="user_email">pacioianu.alexandru13@gmail.com</string>
+    <string name="email_address">journeystoremember@gmail.com</string>
+    <string name="phone_number">0765789976</string>
 
 
 </resources>

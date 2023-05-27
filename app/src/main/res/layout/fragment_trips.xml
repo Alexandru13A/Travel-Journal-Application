@@ -25,7 +25,8 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
+                android:background="@drawable/rounded_backround"
+                android:scaleType="centerCrop"
                 android:src="@drawable/imageholder" />
         </LinearLayout>
 
@@ -40,8 +41,8 @@
                 android:id="@+id/tripNameTextViewItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:layout_marginStart="12dp"
+                android:ellipsize="end"
                 android:text="Trip Name"
                 android:textSize="24sp"
                 android:textStyle="bold|italic" />
@@ -50,8 +51,8 @@
                 android:id="@+id/tripDestinationTextViewItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:layout_marginStart="12dp"
+                android:ellipsize="end"
                 android:text="Destination"
                 android:textSize="18sp" />
 

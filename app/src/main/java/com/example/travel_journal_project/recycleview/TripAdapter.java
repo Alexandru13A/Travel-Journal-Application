@@ -44,8 +44,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
         holder.tripPriceTextView.setText(String.valueOf(currentTrip.getTripPrice()) + " € ");
         holder.tripRatingValue.setText(String.valueOf(currentTrip.getTripRating()) + " ✪ ");
         String image = currentTrip.getTripPhotoUrl();
+
         if (image != null && !image.isEmpty()) {
-            Picasso.get().load(image).into(holder.tripImageItem);
+            Picasso.get().load(new File(image)).into(holder.tripImageItem);
         } else {
             Picasso.get().load(R.drawable.imageholder).into(holder.tripImageItem);
         }

@@ -65,8 +65,6 @@ public class ReadTripActivity extends AppCompatActivity {
     private TextView weatherDescription;
     private ImageView descriptionImageView;
 
-    private final SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
-    private final SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,26 +106,14 @@ public class ReadTripActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         tripNameToolbar.setText(intent.getStringExtra(EXTRA_NAME));
-        String startingDate = intent.getStringExtra(EXTRA_START_DATE);
-        String endingDate = intent.getStringExtra(EXTRA_END_DATE);
-        try {
-            Date startDate = inputDateFormat.parse(startingDate);
-            String formatStartDate = outputDateFormat.format(startDate);
-
-            Date endDate = inputDateFormat.parse(endingDate);
-            String formatEndingDate = outputDateFormat.format(endDate);
-            readTripStartDate.setText(formatStartDate);
-            readTripEndDate.setText(formatEndingDate);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
         String url = intent.getStringExtra(EXTRA_URL);
-        if (url != null ) {
+        if (url != null) {
             Picasso.get().load(url).into(readTripPhotoUrl);
         } else {
             Picasso.get().load(R.drawable.imageholder).into(readTripPhotoUrl);
         }
+        readTripStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
+        readTripEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
         readTripName.setText(intent.getStringExtra(EXTRA_NAME));
         readTripDestination.setText(intent.getStringExtra(EXTRA_DESTINATION).toString());
         readTripType.setText(intent.getStringExtra(EXTRA_TYPE));

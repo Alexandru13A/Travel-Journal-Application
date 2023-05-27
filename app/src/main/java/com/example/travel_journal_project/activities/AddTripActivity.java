@@ -56,7 +56,12 @@ public class AddTripActivity extends AppCompatActivity {
     private ImageView tripItemImage;
     private Button tripGalleryButton;
     public static final int REQUEST_PICK_IMAGE = 1;
+    public static final int GALLERY_REQUEST_CODE = 102;
     private Uri imageUri;
+
+    private int year;
+    private int month;
+    private int day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +89,6 @@ public class AddTripActivity extends AppCompatActivity {
         endTripDate = findViewById(R.id.selectEndingDateEditText);
 
 
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
         tripPricePicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -104,34 +104,7 @@ public class AddTripActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        startTripDate.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(AddTripActivity.this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year12, int month12, int day12) {
-                    month12 = month12 + 1;
-                    Calendar calendar12 = Calendar.getInstance();
-                    calendar12.set(year12, month12, day12);
-                    calendar12.getTime();
-                    String date = day12 + "/" + month12 + "/" + year12;
-                    startTripDate.setText(date);
-                }
-            }, year, month, day);
-            datePickerDialog.show();
-        });
-        endTripDate.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(AddTripActivity.this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year1, int month1, int day1) {
-                    month1 = month1 + 1;
-                    Calendar calendar1 = Calendar.getInstance();
-                    calendar1.set(year1, month1, day1);
-                    calendar1.getTime();
-                    String date = day1 + "/" + month1 + "/" + year1;
-                    endTripDate.setText(date);
-                }
-            }, year, month, day);
-            datePickerDialog.show();
-        });
+
 
         tripGalleryButton.setOnClickListener(v -> {
             openGallery();
@@ -161,24 +134,13 @@ public class AddTripActivity extends AppCompatActivity {
         return tripTypeString;
     }
 
-    private Date extractDateFromEditText(TextView tripDate) {
-        try {
-            String dateStr = tripDate.getText().toString();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            return sdf.parse(dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     private void saveNote() {
         String tripName = tripNameEditText.getText().toString();
         String tripDestination = tripDestinationEditText.getText().toString();
         String tripType = tripTypePicker();
         int tripPrice = tripPricePicker.getProgress();
-        String startTrip = String.valueOf(extractDateFromEditText(startTripDate));
-        String endTrip = String.valueOf(extractDateFromEditText(endTripDate));
+        String startTrip = startTripDate.getText().toString().trim();
+        String endTrip = endTripDate.getText().toString().trim();
         float tripRating = tripRatingBar.getRating();
         String imageUrl = imageUri != null ? getImagePath(imageUri) : null;
         if (tripName.trim().isEmpty() || tripDestination.trim().isEmpty() || tripType.equals("") || tripPrice <= 0) {
@@ -222,4 +184,38 @@ public class AddTripActivity extends AppCompatActivity {
         }
         return uri.getPath();
     }
+
+    public void onClickPickStartDate(View view) {
+        final Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.getTime();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                startTripDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            }
+        }, year, month, day);
+        datePickerDialog.show();
+    }
+
+    public void onClickPickEndDate(View view) {
+        final Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.getTime();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                endTripDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            }
+        }, year, month, day);
+        datePickerDialog.show();
+    }
+
+
 }

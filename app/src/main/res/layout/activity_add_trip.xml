@@ -48,6 +48,7 @@
         android:id="@+id/createTripNameEditText"
         android:layout_width="135dp"
         android:layout_height="48dp"
+        android:background="@drawable/rounded_backround"
         android:minHeight="48dp"
         android:text="Trip Name"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,6 +62,7 @@
         android:id="@+id/createTripDestinationEditText"
         android:layout_width="134dp"
         android:layout_height="48dp"
+        android:background="@drawable/rounded_backround"
         android:minHeight="48dp"
         android:text="@string/destination"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,15 +78,17 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintHorizontal_bias="0.902"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.312">
+        app:layout_constraintVertical_bias="0.303">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_starting_date"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,8 +105,11 @@
             android:layout_gravity="center"
             android:drawableTop="@drawable/ic_calendar"
             android:minHeight="48dp"
+            android:onClick="onClickPickStartDate"
             android:text="@string/start_date"
-            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.746"
@@ -116,6 +123,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/select_ending_date"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -131,8 +140,11 @@
             android:layout_gravity="center"
             android:drawableTop="@drawable/ic_calendar"
             android:minHeight="48dp"
+            android:onClick="onClickPickEndDate"
             android:text="@string/end_date"
-            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.728"
@@ -175,7 +187,8 @@
             android:layout_height="wrap_content"
             android:checkableBehavior="single"
             android:minHeight="48dp"
-            android:text="City Break" />
+            android:text="City Break"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/tripTypeTwo"
@@ -183,7 +196,8 @@
             android:layout_height="wrap_content"
             android:checkableBehavior="single"
             android:minHeight="48dp"
-            android:text="Sea Side" />
+            android:text="Sea Side"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/tripTypeThree"
@@ -191,7 +205,8 @@
             android:layout_height="wrap_content"
             android:checkableBehavior="single"
             android:minHeight="48dp"
-            android:text="Mountains" />
+            android:text="Mountains"
+            android:textStyle="bold" />
 
     </RadioGroup>
 
@@ -210,8 +225,8 @@
 
     <SeekBar
         android:id="@+id/createPriceSeekBar"
-        android:layout_width="281dp"
-        android:layout_height="13dp"
+        android:layout_width="343dp"
+        android:layout_height="17dp"
         android:max="10000"
         android:progress="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -226,6 +241,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/trip_price"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -238,6 +255,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EUR"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travel_journal_project.R;
 import com.example.travel_journal_project.models.Trip;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         holder.tripDestinationTextView.setText(currentTrip.getTripDestination());
         holder.tripPriceTextView.setText(String.valueOf(currentTrip.getTripPrice()) + " € ");
         holder.tripRatingValue.setText(String.valueOf(currentTrip.getTripRating()) + " ✪ ");
-
+        String image = currentTrip.getTripPhotoUrl();
+        if (image != null && !image.isEmpty()) {
+            Picasso.get().load(new File(image)).into(holder.tripImageItem);
+        } else {
+            Picasso.get().load(R.drawable.imageholder).into(holder.tripImageItem);
+        }
 
     }
 
@@ -51,7 +58,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
     public Trip getTripAt(int position) {
         return favTrips.get(position);
     }
-
 
 
     class FavoritesHolder extends RecyclerView.ViewHolder {
