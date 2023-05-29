@@ -1,5 +1,6 @@
 package com.example.travel_journal_project.models;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -22,14 +23,15 @@ public class Trip {
     private int tripPrice;
     private boolean tripIsFavorite = false;
 
-    private String tripPhotoUrl = "";
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] tripImage;
 
     @Ignore
     public Trip() {
     }
 
     @Ignore
-    public Trip(String tripName, String tripDestination, String tripType, String tripStartDate, String tripEndDate, float tripRating, int tripPrice,String imageUrl) {
+    public Trip(String tripName, String tripDestination, String tripType, String tripStartDate, String tripEndDate, float tripRating, int tripPrice, byte[] tripImage) {
         this.tripName = tripName;
         this.tripDestination = tripDestination;
         this.tripType = tripType;
@@ -37,12 +39,12 @@ public class Trip {
         this.tripEndDate = tripEndDate;
         this.tripRating = tripRating;
         this.tripPrice = tripPrice;
-        this.tripPhotoUrl = imageUrl;
+        this.tripImage = tripImage;
 
     }
 
 
-    public Trip(String tripName, String tripDestination, String tripType, String tripStartDate, String tripEndDate, float tripRating, int tripPrice, boolean tripIsFavorite, String tripPhotoUrl) {
+    public Trip(String tripName, String tripDestination, String tripType, String tripStartDate, String tripEndDate, float tripRating, int tripPrice, boolean tripIsFavorite, byte[] tripImage) {
         this.tripName = tripName;
         this.tripDestination = tripDestination;
         this.tripType = tripType;
@@ -51,7 +53,7 @@ public class Trip {
         this.tripRating = tripRating;
         this.tripPrice = tripPrice;
         this.tripIsFavorite = tripIsFavorite;
-        this.tripPhotoUrl = tripPhotoUrl;
+        this.tripImage = tripImage;
     }
 
     public long getTripId() {
@@ -126,26 +128,13 @@ public class Trip {
         this.tripIsFavorite = tripIsFavorite;
     }
 
-    public String getTripPhotoUrl() {
-        return tripPhotoUrl;
+    public byte[] getTripImage() {
+        return tripImage;
     }
 
-    public void setTripPhotoUrl(String tripPhotoUrl) {
-        this.tripPhotoUrl = tripPhotoUrl;
+    public void setTripImage(byte[] tripImage) {
+        this.tripImage = tripImage;
     }
 
-    @Override
-    public String toString() {
-        return "Trip{" +
-                "tripName='" + tripName + '\'' +
-                ", tripDestination='" + tripDestination + '\'' +
-                ", tripType='" + tripType + '\'' +
-                ", tripStartDate='" + tripStartDate + '\'' +
-                ", tripEndDate='" + tripEndDate + '\'' +
-                ", tripRating=" + tripRating +
-                ", tripPrice=" + tripPrice +
-                ", tripIsFavorite=" + tripIsFavorite +
-                ", tripPhotoUrl='" + tripPhotoUrl + '\'' +
-                '}';
-    }
+
 }

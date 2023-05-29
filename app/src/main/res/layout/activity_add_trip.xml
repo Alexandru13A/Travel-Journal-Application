@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/system_accent2_100"
+    android:background="@android:color/system_neutral1_100"
     tools:context=".activities.AddTripActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

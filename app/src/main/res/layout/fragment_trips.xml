@@ -6,9 +6,10 @@
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
     android:layout_marginEnd="16dp"
+    android:orientation="horizontal"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="8dp">
 
-
-    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,18 +23,17 @@
 
             <ImageView
                 android:id="@+id/tripItemImage"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/rounded_backround"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/imageholder" />
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+
             android:background="@drawable/item_color"
             android:orientation="vertical">
 
@@ -44,8 +44,15 @@
                 android:layout_marginStart="12dp"
                 android:ellipsize="end"
                 android:text="Trip Name"
+                android:textColor="@color/black"
                 android:textSize="24sp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.036"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.079" />
 
             <TextView
                 android:id="@+id/tripDestinationTextViewItem"
@@ -54,16 +61,28 @@
                 android:layout_marginStart="12dp"
                 android:ellipsize="end"
                 android:text="Destination"
-                android:textSize="18sp" />
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.397" />
 
             <TextView
                 android:id="@+id/tripRatingItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
                 android:text="Rate stars"
-                android:textSize="16sp" />
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.028"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.841" />
 
             <TextView
                 android:id="@+id/tripPriceItem"
@@ -71,10 +90,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="0"
-                android:textSize="16sp" />
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.022"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.653" />
 
-        </LinearLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 

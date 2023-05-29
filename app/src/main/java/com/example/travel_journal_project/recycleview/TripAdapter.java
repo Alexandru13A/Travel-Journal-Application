@@ -1,5 +1,7 @@
 package com.example.travel_journal_project.recycleview;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,12 +45,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
         holder.tripDestinationTextView.setText(currentTrip.getTripDestination());
         holder.tripPriceTextView.setText(String.valueOf(currentTrip.getTripPrice()) + " € ");
         holder.tripRatingValue.setText(String.valueOf(currentTrip.getTripRating()) + " ✪ ");
-        String image = currentTrip.getTripPhotoUrl();
-
-        if (image != null && !image.isEmpty()) {
-            Picasso.get().load(new File(image)).into(holder.tripImageItem);
+        byte[] tripImage = currentTrip.getTripImage();
+        Bitmap tripImageBitmap = BitmapFactory.decodeByteArray(tripImage, 0, tripImage.length);
+        if (tripImage.length > 0 && tripImage != null) {
+            holder.tripImageItem.setImageBitmap(tripImageBitmap);
         } else {
-            Picasso.get().load(R.drawable.imageholder).into(holder.tripImageItem);
+            holder.tripImageItem.setImageResource(R.drawable.imageholder);
         }
 
 

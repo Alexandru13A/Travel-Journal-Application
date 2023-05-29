@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@android:color/darker_gray</item>
+        <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/darkgreen</item>
     </style>
 
@@ -17,14 +17,14 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MySeekBar" parent="Widget.AppCompat.SeekBar">
-        <item name="android:progressBackgroundTint">#3D7718</item>
-        <item name="android:progressTint">#266388</item>
-        <item name="android:colorControlActivated">#166354</item>
+        <item name="android:progressBackgroundTint">#000000</item>
+        <item name="android:progressTint">#FFFFFF</item>
+        <item name="android:colorControlActivated">#515756</item>
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">#B3E5FC</item>
-        <item name="colorControlActivated">#0091EA</item>
+        <item name="colorControlNormal">#6D7578</item>
+        <item name="colorControlActivated">#E4E4E4</item>
     </style>
 
     <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">

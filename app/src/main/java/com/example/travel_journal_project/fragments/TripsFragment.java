@@ -97,7 +97,7 @@ public class TripsFragment extends Fragment {
                 intent.putExtra(ReadTripActivity.EXTRA_START_DATE, trip.getTripStartDate());
                 intent.putExtra(ReadTripActivity.EXTRA_END_DATE, trip.getTripEndDate());
                 intent.putExtra(ReadTripActivity.EXTRA_RATING, trip.getTripRating());
-                intent.putExtra(ReadTripActivity.EXTRA_URL, trip.getTripPhotoUrl());
+                intent.putExtra(ReadTripActivity.EXTRA_IMAGE, trip.getTripImage());
                 intent.putExtra(ReadTripActivity.EXTRA_FAVORITE, trip.isTripIsFavorite());
                 startActivity(intent);
             }
@@ -113,7 +113,7 @@ public class TripsFragment extends Fragment {
                 intent.putExtra(UpdateTripActivity.EXTRA_START_DATE, trip.getTripStartDate());
                 intent.putExtra(UpdateTripActivity.EXTRA_END_DATE, trip.getTripEndDate());
                 intent.putExtra(UpdateTripActivity.EXTRA_RATING, trip.getTripRating());
-                intent.putExtra(UpdateTripActivity.EXTRA_URL, trip.getTripPhotoUrl());
+                intent.putExtra(UpdateTripActivity.EXTRA_IMAGE, trip.getTripImage());
                 startActivity(intent);
             }
         });

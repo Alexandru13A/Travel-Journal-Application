@@ -11,6 +11,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,22 +20,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.travel_journal_project.R;
+import com.example.travel_journal_project.style.ComponentsStyle;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class ReadTripActivity extends AppCompatActivity {
 
+    private ComponentsStyle componentsStyle;
     public static final String EXTRA_ID = "com.example.travel_journal_project.activities.EXTRA_ID";
     public static final String EXTRA_NAME = "com.example.travel_journal_project.activities.EXTRA_NAME";
     public static final String EXTRA_DESTINATION = "com.example.travel_journal_project.activities.EXTRA_DESTINATION";
@@ -43,10 +41,10 @@ public class ReadTripActivity extends AppCompatActivity {
     public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
     public static final String EXTRA_FAVORITE = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
-    public static final String EXTRA_URL = "com.example.travel_journal_project.activities.EXTRA_URL";
+    public static final String EXTRA_IMAGE = "com.example.travel_journal_project.activities.EXTRA_URL";
     private static final String API_KEY = "e4b67f36ff0d78945ab3b63ddcb777de";
 
-    private ImageView readTripPhotoUrl;
+    private ImageView readTripImage;
     private TextView readTripName;
     private TextView readTripDestination;
     private TextView readTripPrice;
@@ -85,12 +83,12 @@ public class ReadTripActivity extends AppCompatActivity {
         if (tripIsFavorite == true) {
             tripFavoriteButton.setImageResource(R.drawable.not_favorite);
             tripViewModel.addToFavorite(id, false);
-            Toast.makeText(ReadTripActivity.this, "removed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ReadTripActivity.this, "Removed from Favorites", Toast.LENGTH_LONG).show();
             finish();
         } else {
             tripFavoriteButton.setImageResource(R.drawable.is_favorite);
             tripViewModel.addToFavorite(id, true);
-            Toast.makeText(ReadTripActivity.this, "added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ReadTripActivity.this, "Added to Favorites", Toast.LENGTH_LONG).show();
             finish();
         }
 
@@ -104,14 +102,13 @@ public class ReadTripActivity extends AppCompatActivity {
 
     public void fillFields() {
 
+        componentsStyle = new ComponentsStyle();
         Intent intent = getIntent();
         tripNameToolbar.setText(intent.getStringExtra(EXTRA_NAME));
-        String url = intent.getStringExtra(EXTRA_URL);
-        if (url != null) {
-            Picasso.get().load(url).into(readTripPhotoUrl);
-        } else {
-            Picasso.get().load(R.drawable.imageholder).into(readTripPhotoUrl);
-        }
+
+        byte[] tripImage = intent.getByteArrayExtra(EXTRA_IMAGE);
+        Bitmap tripImageBitmap = BitmapFactory.decodeByteArray(tripImage, 0, tripImage.length);
+        readTripImage.setImageBitmap(tripImageBitmap);
         readTripStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
         readTripEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
         readTripName.setText(intent.getStringExtra(EXTRA_NAME));
@@ -150,10 +147,9 @@ public class ReadTripActivity extends AppCompatActivity {
 
     public void setComponents() {
 
-        readTripPhotoUrl = findViewById(R.id.readTripImage);
+        readTripImage = findViewById(R.id.readTripImage);
         tripNameToolbar = findViewById(R.id.trip_name_toolbar);
         tripFavoriteButton = findViewById(R.id.tripFavoriteButton);
-        readTripPhotoUrl = findViewById(R.id.readTripImage);
         readTripName = findViewById(R.id.readTripName);
         readTripDestination = findViewById(R.id.readTripDestination);
         readTripPrice = findViewById(R.id.readTripPrice);

@@ -9,7 +9,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
@@ -30,6 +34,8 @@ import com.example.travel_journal_project.models.Trip;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,7 +52,7 @@ public class UpdateTripActivity extends AppCompatActivity {
     public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
 
-    public static final String EXTRA_URL = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
+    public static final String EXTRA_IMAGE = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
 
     private EditText tripNameEditText;
     private EditText tripDestinationEditText;
@@ -65,7 +71,7 @@ public class UpdateTripActivity extends AppCompatActivity {
 
     public static final int REQUEST_PICK_IMAGE = 1;
     private Uri imageUri;
-
+    private Bitmap bitmap;
     private int year;
     private int month;
     private int day;
@@ -94,7 +100,9 @@ public class UpdateTripActivity extends AppCompatActivity {
             tripTypeRadioGroup.getCheckedRadioButtonId();
             tripRatingBar.setRating(intent.getFloatExtra(EXTRA_RATING, 0));
             tripPriceTextView.setText(String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
-            tripItemImage = findViewById(R.id.tripItemImage);
+            byte[] tripImageByte = intent.getByteArrayExtra(EXTRA_IMAGE);
+            Bitmap tripImageBitmap = BitmapFactory.decodeByteArray(tripImageByte, 0, tripImageByte.length);
+            tripItemImage.setImageBitmap(tripImageBitmap);
         }
 
 
@@ -133,7 +141,10 @@ public class UpdateTripActivity extends AppCompatActivity {
         String startTrip = startTripDate.getText().toString().trim();
         String endTrip = endTripDate.getText().toString().trim();
         float tripRating = tripRatingBar.getRating();
-        String imageUrl = imageUri != null ? getImagePath(imageUri) : null;
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] imageTrip = stream.toByteArray();
 
         long id = getIntent().getLongExtra(EXTRA_ID, -1);
 
@@ -145,7 +156,7 @@ public class UpdateTripActivity extends AppCompatActivity {
 
         } else {
 
-            Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice, imageUrl);
+            Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice, imageTrip);
             trip.setTripId(id);
             tripViewModel.updateTrip(trip);
             Toast.makeText(UpdateTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();
@@ -223,21 +234,25 @@ public class UpdateTripActivity extends AppCompatActivity {
         if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK) {
             imageUri = data.getData();
             Picasso.get().load(imageUri).into(tripItemImage);
+            bitmap = uriToBitmap(imageUri);
         }
     }
 
-    private String getImagePath(Uri uri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            String imagePath = cursor.getString(columnIndex);
-            cursor.close();
-            return imagePath;
+    private Bitmap uriToBitmap(Uri uri) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), uri);
+                return ImageDecoder.decodeBitmap(source);
+            } else {
+                return MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+
         }
-        return uri.getPath();
     }
+
 
     public void onClickPickStartDate(View view) {
         final Calendar calendar = Calendar.getInstance();
