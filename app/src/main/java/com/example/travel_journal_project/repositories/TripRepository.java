@@ -3,6 +3,7 @@ package com.example.travel_journal_project.repositories;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.travel_journal_project.database.AppDatabase;
 import com.example.travel_journal_project.helpers.MyExecutor;
@@ -10,6 +11,7 @@ import com.example.travel_journal_project.database.TripDao;
 import com.example.travel_journal_project.models.Trip;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TripRepository {
 
@@ -17,6 +19,7 @@ public class TripRepository {
     private LiveData<List<Trip>> allTrips;
 
     private LiveData<List<Trip>> allFavoritesTrips;
+
     private MyExecutor executor;
 
     public TripRepository(Application application) {
@@ -25,6 +28,7 @@ public class TripRepository {
         executor = new MyExecutor();
         allTrips = tripDao.getAllTrips();
         allFavoritesTrips = tripDao.getFavoritesTrips();
+
     }
 
     public LiveData<List<Trip>> getAllTrips() {
@@ -59,6 +63,12 @@ public class TripRepository {
             tripDao.update(id, value);
         });
     }
+
+    public Trip getTripById(long tripId) {
+        return tripDao.getTripById(tripId);
+
+    }
+
 
 }
 

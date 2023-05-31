@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
@@ -18,9 +17,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -36,23 +35,12 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class UpdateTripActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "com.example.travel_journal_project.activities.EXTRA_ID";
-    public static final String EXTRA_NAME = "com.example.travel_journal_project.activities.EXTRA_NAME";
-    public static final String EXTRA_DESTINATION = "com.example.travel_journal_project.activities.EXTRA_DESTINATION";
-    public static final String EXTRA_TYPE = "com.example.travel_journal_project.activities.EXTRA_TYPE";
-    public static final String EXTRA_RATING = "com.example.travel_journal_project.activities.EXTRA_RATING";
-    public static final String EXTRA_PRICE = "com.example.travel_journal_project.activities.EXTRA_PRICE";
-    public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
-
-    public static final String EXTRA_IMAGE = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
 
     private EditText tripNameEditText;
     private EditText tripDestinationEditText;
@@ -62,14 +50,16 @@ public class UpdateTripActivity extends AppCompatActivity {
     private TextView tripPriceTextView;
     private TextView startTripDate;
     private TextView endTripDate;
-    private Button updateButton;
+    private ImageButton updateButton;
     private TextView activityNameToolbar;
     private ImageView tripItemImage;
-    private Button tripGalleryButton;
+    private ImageButton tripGalleryButton;
     private TripViewModel tripViewModel;
 
 
     public static final int REQUEST_PICK_IMAGE = 1;
+
+    private byte[] imageTrip;
     private Uri imageUri;
     private Bitmap bitmap;
     private int year;
@@ -92,17 +82,46 @@ public class UpdateTripActivity extends AppCompatActivity {
     public void fillTheFields() {
         Intent intent = getIntent();
         activityNameToolbar.setText(R.string.update_activity_name);
-        if (intent.hasExtra(EXTRA_ID)) {
-            startTripDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-            endTripDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-            tripNameEditText.setText(intent.getStringExtra(EXTRA_NAME));
-            tripDestinationEditText.setText(intent.getStringExtra(EXTRA_DESTINATION));
-            tripTypeRadioGroup.getCheckedRadioButtonId();
-            tripRatingBar.setRating(intent.getFloatExtra(EXTRA_RATING, 0));
-            tripPriceTextView.setText(String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
-            byte[] tripImageByte = intent.getByteArrayExtra(EXTRA_IMAGE);
-            Bitmap tripImageBitmap = BitmapFactory.decodeByteArray(tripImageByte, 0, tripImageByte.length);
-            tripItemImage.setImageBitmap(tripImageBitmap);
+        long id = intent.getLongExtra(EXTRA_ID, 0);
+
+        if (id != -1) {
+
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            executorService.execute(() -> {
+                Trip trip = tripViewModel.getTripById(id);
+                String tripName = trip.getTripName();
+                String tripDestination = trip.getTripDestination();
+                String tripType = trip.getTripType();
+                String startDate = trip.getTripStartDate();
+                String endDate = trip.getTripEndDate();
+                float tripRating = trip.getTripRating();
+                int tripPrice = trip.getTripPrice();
+                imageTrip = trip.getTripImage();
+
+                runOnUiThread(() -> {
+                    if (trip != null) {
+                        tripNameEditText.setText(tripName);
+                        tripDestinationEditText.setText(tripDestination);
+                        startTripDate.setText(startDate);
+                        endTripDate.setText(endDate);
+                        tripPriceTextView.setText(String.valueOf(tripPrice));
+                        Bitmap tripImageBitmap = BitmapFactory.decodeByteArray(imageTrip, 0, imageTrip.length);
+                        tripItemImage.setImageBitmap(tripImageBitmap);
+                        tripRatingBar.setRating(tripRating);
+                        tripPricePicker.setProgress(tripPrice);
+
+
+                        if (tripType.equals("City Break")) {
+                            tripTypeRadioGroup.check(R.id.tripTypeOne);
+                        } else if (tripType.equals("Sea Side")) {
+                            tripTypeRadioGroup.check(R.id.tripTypeTwo);
+                        } else if (tripType.equals("Mountains")) {
+                            tripTypeRadioGroup.check(R.id.tripTypeThree);
+                        }
+                    }
+
+                });
+            });
         }
 
 
@@ -142,10 +161,13 @@ public class UpdateTripActivity extends AppCompatActivity {
         String endTrip = endTripDate.getText().toString().trim();
         float tripRating = tripRatingBar.getRating();
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] imageTrip = stream.toByteArray();
-
+        if (imageTrip != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            imageTrip = stream.toByteArray();
+        } else {
+            imageTrip = new byte[]{0};
+        }
         long id = getIntent().getLongExtra(EXTRA_ID, -1);
 
         if (tripName.trim().isEmpty() || tripDestination.trim().isEmpty() || tripType.equals("") || tripPrice <= 0 || startTrip.trim().isEmpty() || endTrip.trim().isEmpty()) {
@@ -285,5 +307,4 @@ public class UpdateTripActivity extends AppCompatActivity {
         }, year, month, day);
         datePickerDialog.show();
     }
-
 }

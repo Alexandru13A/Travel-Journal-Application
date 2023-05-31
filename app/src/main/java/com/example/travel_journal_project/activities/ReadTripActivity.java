@@ -2,6 +2,7 @@ package com.example.travel_journal_project.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.travel_journal_project.R;
-import com.example.travel_journal_project.style.ComponentsStyle;
+import com.example.travel_journal_project.models.Trip;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,19 +30,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import kotlinx.coroutines.GlobalScope;
+
 public class ReadTripActivity extends AppCompatActivity {
 
-    private ComponentsStyle componentsStyle;
+
     public static final String EXTRA_ID = "com.example.travel_journal_project.activities.EXTRA_ID";
-    public static final String EXTRA_NAME = "com.example.travel_journal_project.activities.EXTRA_NAME";
-    public static final String EXTRA_DESTINATION = "com.example.travel_journal_project.activities.EXTRA_DESTINATION";
-    public static final String EXTRA_TYPE = "com.example.travel_journal_project.activities.EXTRA_TYPE";
-    public static final String EXTRA_RATING = "com.example.travel_journal_project.activities.EXTRA_RATING";
-    public static final String EXTRA_PRICE = "com.example.travel_journal_project.activities.EXTRA_PRICE";
-    public static final String EXTRA_START_DATE = "com.example.travel_journal_project.activities.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE = "com.example.travel_journal_project.activities.EXTRA_END_DATE";
-    public static final String EXTRA_FAVORITE = "com.example.travel_journal_project.activities.EXTRA_FAVORITE";
-    public static final String EXTRA_IMAGE = "com.example.travel_journal_project.activities.EXTRA_URL";
+
     private static final String API_KEY = "e4b67f36ff0d78945ab3b63ddcb777de";
 
     private ImageView readTripImage;
@@ -102,29 +100,51 @@ public class ReadTripActivity extends AppCompatActivity {
 
     public void fillFields() {
 
-        componentsStyle = new ComponentsStyle();
+
         Intent intent = getIntent();
-        tripNameToolbar.setText(intent.getStringExtra(EXTRA_NAME));
-
-        byte[] tripImage = intent.getByteArrayExtra(EXTRA_IMAGE);
-        Bitmap tripImageBitmap = BitmapFactory.decodeByteArray(tripImage, 0, tripImage.length);
-        readTripImage.setImageBitmap(tripImageBitmap);
-        readTripStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-        readTripEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-        readTripName.setText(intent.getStringExtra(EXTRA_NAME));
-        readTripDestination.setText(intent.getStringExtra(EXTRA_DESTINATION).toString());
-        readTripType.setText(intent.getStringExtra(EXTRA_TYPE));
-        readTripRating.setText(intent.getFloatExtra(EXTRA_RATING, 0) + " ✪ ");
-        readTripPrice.setText(intent.getIntExtra(EXTRA_PRICE, 0) + " € ");
-        tripIsFavorite = intent.getBooleanExtra(EXTRA_FAVORITE, false);
-        if (tripIsFavorite == true) {
-            tripFavoriteButton.setImageResource(R.drawable.is_favorite);
-        } else {
-            tripFavoriteButton.setImageResource(R.drawable.not_favorite);
-        }
         long id = intent.getLongExtra(EXTRA_ID, 0);
-        showTemperature(intent.getStringExtra(EXTRA_DESTINATION).trim());
 
+        if (id != -1) {
+
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            executorService.execute(() -> {
+                Trip trip = tripViewModel.getTripById(id);
+                String tripName = trip.getTripName();
+                String tripDestination = trip.getTripDestination();
+                String tripType = trip.getTripType();
+                String startDate = trip.getTripStartDate();
+                String endDate = trip.getTripEndDate();
+                float tripRating = trip.getTripRating();
+                int tripPrice = trip.getTripPrice();
+                tripIsFavorite = trip.isTripIsFavorite();
+                byte[] tripPhoto = trip.getTripImage();
+
+                runOnUiThread(() -> {
+                    if (trip != null) {
+                        readTripName.setText(tripName);
+                        readTripDestination.setText(tripDestination);
+                        readTripType.setText(tripType);
+                        readTripStartDate.setText(startDate);
+                        readTripEndDate.setText(endDate);
+                        readTripRating.setText(String.valueOf(tripRating + " ✪ "));
+                        readTripPrice.setText(String.valueOf(tripPrice + " € "));
+                        Bitmap tripImageBitmap = BitmapFactory.decodeByteArray(tripPhoto, 0, tripPhoto.length);
+                        readTripImage.setImageBitmap(tripImageBitmap);
+
+                        if (tripIsFavorite == true) {
+                            tripFavoriteButton.setImageResource(R.drawable.is_favorite);
+                        } else {
+                            tripFavoriteButton.setImageResource(R.drawable.not_favorite);
+                        }
+
+                        showTemperature(tripDestination.trim());
+
+                    }
+
+                });
+            });
+
+        }
 
         tripFavoriteButton.setOnClickListener(v -> addRemoveFromFavorites(id));
 

@@ -63,5 +63,9 @@ public class TripViewModel extends AndroidViewModel {
         repository.addToFavorite(id, value);
     }
 
+    public Trip getTripById(long id) {
+        return repository.getTripById(id);
+    }
+
 
 }

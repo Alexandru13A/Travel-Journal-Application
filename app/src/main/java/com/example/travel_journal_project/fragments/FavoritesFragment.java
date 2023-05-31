@@ -86,14 +86,6 @@ public class FavoritesFragment extends Fragment {
         adapter.favTripClickListener(trip -> {
             Intent intent = new Intent(getContext(), ReadTripActivity.class);
             intent.putExtra(ReadTripActivity.EXTRA_ID, trip.getTripId());
-            intent.putExtra(ReadTripActivity.EXTRA_NAME, trip.getTripName());
-            intent.putExtra(ReadTripActivity.EXTRA_DESTINATION, trip.getTripDestination());
-            intent.putExtra(ReadTripActivity.EXTRA_TYPE, trip.getTripType());
-            intent.putExtra(ReadTripActivity.EXTRA_PRICE, trip.getTripPrice());
-            intent.putExtra(ReadTripActivity.EXTRA_START_DATE, trip.getTripStartDate());
-            intent.putExtra(ReadTripActivity.EXTRA_END_DATE, trip.getTripEndDate());
-            intent.putExtra(ReadTripActivity.EXTRA_RATING, trip.getTripRating());
-            intent.putExtra(ReadTripActivity.EXTRA_FAVORITE, trip.isTripIsFavorite());
             startActivity(intent);
         });
 

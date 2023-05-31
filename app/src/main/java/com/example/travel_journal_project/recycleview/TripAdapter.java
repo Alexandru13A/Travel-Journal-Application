@@ -2,26 +2,16 @@ package com.example.travel_journal_project.recycleview;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.travel_journal_project.R;
 import com.example.travel_journal_project.models.Trip;
-import com.example.travel_journal_project.repositories.TripRepository;
-import com.example.travel_journal_project.viewmodel.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,13 +82,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(trips.get(position));
+                    Trip trip = trips.get(position);
+                    listener.onItemClick(trip);
                 }
             });
             itemView.setOnLongClickListener(v -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.onLongItemClick(trips.get(position));
+                    Trip trip = trips.get(position);
+                    listener.onLongItemClick(trip);
                 }
                 return true;
             });

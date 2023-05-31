@@ -14,16 +14,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.example.travel_journal_project.R;
 import com.example.travel_journal_project.models.Trip;
@@ -50,11 +49,12 @@ public class AddTripActivity extends AppCompatActivity {
     private Boolean isFavorite;
 
     private TextView activityNameToolbar;
-    private Button saveTripButton;
+    private ImageButton saveTripButton;
     private ImageView tripItemImage;
-    private Button tripGalleryButton;
+    private ImageButton tripGalleryButton;
     public static final int REQUEST_PICK_IMAGE = 1;
     public static final int GALLERY_REQUEST_CODE = 102;
+    private byte[] imageTrip;
     private Uri imageUri;
     private Bitmap bitmap;
 
@@ -152,9 +152,13 @@ public class AddTripActivity extends AppCompatActivity {
         String endTrip = endTripDate.getText().toString().trim();
         float tripRating = tripRatingBar.getRating();
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] imageTrip = stream.toByteArray();
+        if (imageTrip != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            imageTrip = stream.toByteArray();
+        } else {
+            imageTrip = new byte[]{0};
+        }
 
         if (tripName.trim().isEmpty() || tripDestination.trim().isEmpty() || tripType.equals("") || tripPrice <= 0) {
             Toast.makeText(this, "Please fill all spaces", Toast.LENGTH_SHORT).show();

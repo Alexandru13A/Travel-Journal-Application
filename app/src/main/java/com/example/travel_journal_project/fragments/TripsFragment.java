@@ -90,15 +90,6 @@ public class TripsFragment extends Fragment {
             public void onItemClick(Trip trip) {
                 Intent intent = new Intent(getContext(), ReadTripActivity.class);
                 intent.putExtra(ReadTripActivity.EXTRA_ID, trip.getTripId());
-                intent.putExtra(ReadTripActivity.EXTRA_NAME, trip.getTripName());
-                intent.putExtra(ReadTripActivity.EXTRA_DESTINATION, trip.getTripDestination());
-                intent.putExtra(ReadTripActivity.EXTRA_TYPE, trip.getTripType());
-                intent.putExtra(ReadTripActivity.EXTRA_PRICE, trip.getTripPrice());
-                intent.putExtra(ReadTripActivity.EXTRA_START_DATE, trip.getTripStartDate());
-                intent.putExtra(ReadTripActivity.EXTRA_END_DATE, trip.getTripEndDate());
-                intent.putExtra(ReadTripActivity.EXTRA_RATING, trip.getTripRating());
-                intent.putExtra(ReadTripActivity.EXTRA_IMAGE, trip.getTripImage());
-                intent.putExtra(ReadTripActivity.EXTRA_FAVORITE, trip.isTripIsFavorite());
                 startActivity(intent);
             }
 
@@ -106,14 +97,6 @@ public class TripsFragment extends Fragment {
             public void onLongItemClick(Trip trip) {
                 Intent intent = new Intent(getContext(), UpdateTripActivity.class);
                 intent.putExtra(UpdateTripActivity.EXTRA_ID, trip.getTripId());
-                intent.putExtra(UpdateTripActivity.EXTRA_NAME, trip.getTripName());
-                intent.putExtra(UpdateTripActivity.EXTRA_DESTINATION, trip.getTripDestination());
-                intent.putExtra(UpdateTripActivity.EXTRA_TYPE, trip.getTripType());
-                intent.putExtra(UpdateTripActivity.EXTRA_PRICE, trip.getTripPrice());
-                intent.putExtra(UpdateTripActivity.EXTRA_START_DATE, trip.getTripStartDate());
-                intent.putExtra(UpdateTripActivity.EXTRA_END_DATE, trip.getTripEndDate());
-                intent.putExtra(UpdateTripActivity.EXTRA_RATING, trip.getTripRating());
-                intent.putExtra(UpdateTripActivity.EXTRA_IMAGE, trip.getTripImage());
                 startActivity(intent);
             }
         });

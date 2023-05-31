@@ -18,8 +18,6 @@ public interface TripDao {
     @Query("UPDATE trip_table SET tripIsFavorite = :isFavorite  WHERE tripId = :tripId")
     void update(long tripId, boolean isFavorite);
 
-    @Query("SELECT* FROM trip_table WHERE tripId = :id")
-    LiveData<Trip> getFavoriteLiveData(long id);
 
     @Query("SELECT * FROM trip_table")
     LiveData<List<Trip>> getAllTrips();
@@ -27,6 +25,8 @@ public interface TripDao {
     @Query("SELECT * FROM trip_table WHERE tripIsFavorite = 1")
     LiveData<List<Trip>> getFavoritesTrips();
 
+    @Query("SELECT*FROM trip_table WHERE tripId = :tripId")
+    Trip getTripById(long tripId);
 
     @Insert
     void insertTrip(Trip trip);
