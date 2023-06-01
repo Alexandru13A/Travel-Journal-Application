@@ -226,7 +226,7 @@ public class UpdateTripActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        activityNameToolbar.setText("Create a new Trip");
+        activityNameToolbar.setText("Add Trip");
 
     }
 

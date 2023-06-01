@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,7 +38,6 @@ public class AddTripActivity extends AppCompatActivity {
 
 
     private TripViewModel tripViewModel;
-
     private EditText tripNameEditText;
     private EditText tripDestinationEditText;
     private RadioGroup tripTypeRadioGroup;
@@ -106,7 +106,7 @@ public class AddTripActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        activityNameToolbar.setText("Create a new Trip");
+        activityNameToolbar.setText("ADD TRIP");
     }
 
     public void setComponents() {

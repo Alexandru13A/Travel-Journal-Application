@@ -18,18 +18,20 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.travel_journal_project.R;
+import com.example.travel_journal_project.activities.AddTripActivity;
 import com.example.travel_journal_project.activities.ReadTripActivity;
 import com.example.travel_journal_project.activities.UpdateTripActivity;
 import com.example.travel_journal_project.models.Trip;
 import com.example.travel_journal_project.recycleview.TripAdapter;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 
 public class TripsFragment extends Fragment {
 
-
+    private FloatingActionButton fab;
     private TripViewModel tripViewModel;
     private TripAdapter adapter;
 
@@ -45,12 +47,24 @@ public class TripsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.trip_recycle_view);
+        fab = view.findViewById(R.id.fab);
+
+
         setRecyclerView();
         getAllTrips();
         readOrUpdateOnClick();
         deleteTripOnDrag();
+        handleFab();
 
     }
+
+    private void handleFab() {
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), AddTripActivity.class);
+            startActivity(intent);
+        });
+    }
+
 
     public void setRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

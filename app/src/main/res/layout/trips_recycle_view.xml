@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,5 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/fragment_trips" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="@string/add_trip"
+        app:srcCompat="@drawable/trip_add_button" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -121,6 +121,7 @@ public class ReadTripActivity extends AppCompatActivity {
 
                 runOnUiThread(() -> {
                     if (trip != null) {
+                        tripNameToolbar.setText(tripName);
                         readTripName.setText(tripName);
                         readTripDestination.setText(tripDestination);
                         readTripType.setText(tripType);

@@ -16,14 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.travel_journal_project.R;
+import com.example.travel_journal_project.activities.AddTripActivity;
 import com.example.travel_journal_project.activities.ReadTripActivity;
 import com.example.travel_journal_project.activities.UpdateTripActivity;
 import com.example.travel_journal_project.models.Trip;
 import com.example.travel_journal_project.recycleview.FavoritesAdapter;
 import com.example.travel_journal_project.recycleview.TripAdapter;
 import com.example.travel_journal_project.viewmodel.TripViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class FavoritesFragment extends Fragment {
     private TripViewModel tripViewModel;
     private FavoritesAdapter adapter;
     private RecyclerView recyclerView;
+    private FloatingActionButton fab;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         return inflater.inflate(R.layout.favorites_recycle_view, container, false);
@@ -42,12 +46,23 @@ public class FavoritesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.favorites_recycle_view);
+        fab = view.findViewById(R.id.fab);
+
+
 
         setRecyclerView();
         getAllFavoritesTrips();
         deleteTripOnDrag();
         readOnClick();
+        handleFab();
 
+    }
+
+    private void handleFab() {
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), AddTripActivity.class);
+            startActivity(intent);
+        });
     }
 
     public void setRecyclerView() {

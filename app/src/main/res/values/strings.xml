@@ -64,6 +64,7 @@
     <string name="user_email">pacioianu.alexandru13@gmail.com</string>
     <string name="email_address">journeystoremember@gmail.com</string>
     <string name="phone_number">0765789976</string>
+    <string name="trip_name">Trip Name</string>
 
 
 </resources>

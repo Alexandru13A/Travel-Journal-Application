@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/system_neutral1_100"
+    android:background="@color/white"
     tools:context=".activities.AddTripActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -37,45 +37,70 @@
             android:layout_gravity="center"
             android:fontFamily="serif"
             android:text="@string/text"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold|italic" />
 
+        <ImageButton
+            android:id="@+id/createTripSaveButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:background="@color/transparent"
+            android:contentDescription="@string/add_trip"
+            android:src="@drawable/outline_check_circle_24"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.976" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-    <EditText
-        android:id="@+id/createTripNameEditText"
-        android:layout_width="135dp"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_backround"
-        android:minHeight="48dp"
-        android:text="Trip Name"
+    <androidx.cardview.widget.CardView
+        android:layout_width="370dp"
+        android:layout_height="75dp"
+        android:orientation="horizontal"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.161" />
+        app:layout_constraintVertical_bias="0.128">
 
-    <EditText
-        android:id="@+id/createTripDestinationEditText"
-        android:layout_width="134dp"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_backround"
-        android:minHeight="48dp"
-        android:text="@string/destination"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.161" />
+        <EditText
+            android:id="@+id/createTripNameEditText"
+            android:layout_width="134dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start|center"
+            android:layout_margin="14dp"
+            android:background="@drawable/rounded_backround"
+            android:minHeight="48dp"
+            android:text="@string/trip_name"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/createTripDestinationEditText"
+            android:layout_width="134dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|center"
+            android:layout_margin="14dp"
+            android:background="@drawable/rounded_backround"
+            android:minHeight="48dp"
+            android:text="@string/destination"
+            android:textAlignment="center" />
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.902"
@@ -171,8 +196,8 @@
 
     <RadioGroup
         android:id="@+id/createRadioGroup"
-        android:layout_width="101dp"
-        android:layout_height="145dp"
+        android:layout_width="126dp"
+        android:layout_height="144dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -210,19 +235,6 @@
 
     </RadioGroup>
 
-
-    <ImageButton
-        android:id="@+id/createTripSaveButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_save"
-        android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
 
     <SeekBar
         android:id="@+id/createPriceSeekBar"
@@ -264,30 +276,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/tripGalleryButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_menu_gallery"
-        android:text="@string/open_gallery"
+    <androidx.cardview.widget.CardView
+        android:layout_width="261dp"
+        android:layout_height="182dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.903"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.808" />
+        app:layout_constraintVertical_bias="0.938">
 
-    <ImageView
-        android:id="@+id/tripItemImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.857"
-        app:srcCompat="@drawable/imageholder" />
+        <ImageView
+            android:id="@+id/tripItemImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/imageholder" />
+
+        <ImageButton
+            android:id="@+id/tripGalleryButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center|end"
+            android:layout_margin="8dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/add_trip"
+            android:src="@drawable/ic_menu_gallery"
+            android:text="@string/open_gallery" />
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

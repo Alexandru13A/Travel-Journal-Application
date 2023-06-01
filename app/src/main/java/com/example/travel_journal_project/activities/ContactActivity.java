@@ -32,6 +32,7 @@ public class ContactActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+
         callButton = findViewById(R.id.dialButton);
         emailButton = findViewById(R.id.emailButton);
         backButton = findViewById(R.id.back_button);
