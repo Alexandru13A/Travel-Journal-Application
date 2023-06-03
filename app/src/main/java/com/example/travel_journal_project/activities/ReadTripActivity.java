@@ -40,7 +40,7 @@ public class ReadTripActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "com.example.travel_journal_project.activities.EXTRA_ID";
 
-    private static final String API_KEY = "e4b67f36ff0d78945ab3b63ddcb777de";
+    private static final String API_KEY = "";
 
     private ImageView readTripImage;
     private TextView readTripName;
