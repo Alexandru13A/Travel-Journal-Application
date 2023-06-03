@@ -169,7 +169,7 @@ public class ReadTripActivity extends AppCompatActivity {
     public void setComponents() {
 
         readTripImage = findViewById(R.id.readTripImage);
-        tripNameToolbar = findViewById(R.id.trip_name_toolbar);
+        tripNameToolbar = findViewById(R.id.activity_name_toolbar);
         tripFavoriteButton = findViewById(R.id.tripFavoriteButton);
         readTripName = findViewById(R.id.readTripName);
         readTripDestination = findViewById(R.id.readTripDestination);

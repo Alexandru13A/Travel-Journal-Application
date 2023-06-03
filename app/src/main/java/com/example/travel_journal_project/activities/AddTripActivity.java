@@ -152,13 +152,6 @@ public class AddTripActivity extends AppCompatActivity {
         String endTrip = endTripDate.getText().toString().trim();
         float tripRating = tripRatingBar.getRating();
 
-        if (imageTrip != null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            imageTrip = stream.toByteArray();
-        } else {
-            imageTrip = new byte[]{0};
-        }
 
         if (tripName.trim().isEmpty() || tripDestination.trim().isEmpty() || tripType.equals("") || tripPrice <= 0) {
             Toast.makeText(this, "Please fill all spaces", Toast.LENGTH_SHORT).show();
@@ -167,6 +160,7 @@ public class AddTripActivity extends AppCompatActivity {
             Trip trip = new Trip(tripName, tripDestination, tripType, startTrip, endTrip, tripRating, tripPrice, imageTrip);
             tripViewModel.insert(trip);
             Toast.makeText(AddTripActivity.this, "TRIP SAVED", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -187,9 +181,16 @@ public class AddTripActivity extends AppCompatActivity {
             imageUri = data.getData();
             Picasso.get().load(imageUri).into(tripItemImage);
             bitmap = uriToBitmap(imageUri);
+
+            if(bitmap != null){
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                imageTrip = stream.toByteArray();
+            }
         }
     }
 
+    @Nullable
     private Bitmap uriToBitmap(Uri uri) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TravelJournal</string>
+
     <string name="rate_trip">Rate Trip</string>
     <string name="destination">Destination</string>
     <string name="select_starting_date">Select Starting Date</string>
@@ -65,6 +65,19 @@
     <string name="email_address">journeystoremember@gmail.com</string>
     <string name="phone_number">0765789976</string>
     <string name="trip_name">Trip Name</string>
+    <string name="starting_trip_date">Starting Trip date</string>
+    <string name="ending_trip_dare">Ending Trip Dare</string>
+    <string name="dd_mm_yyyy">dd/mm/yyyy</string>
+    <string name="rating">Rating</string>
+    <string name="price">Price</string>
+    <string name="temperature">temperature</string>
+    <string name="trip_image_view">trip image view</string>
+    <string name="weather">weather</string>
+    <string name="trip_type1">City Break</string>
+    <string name="trip_type2">Sea Side</string>
+    <string name="trip_type3">Mountains</string>
+    <string name="eur">EUR</string>
+    <string name="select_image_from_gallery">Select Image From Gallery</string>
 
 
 </resources>

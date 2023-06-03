@@ -5,65 +5,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0dp"
-    android:background="@color/white"
+    android:background="#FFFFFF"
     tools:context=".activities.ReadTripActivity">
 
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout2"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/AppTheme.Toolbar.TitleText"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/side_nav_bar" />
+        android:background="@drawable/side_nav_bar"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="start|center"
             android:contentDescription="@string/back_button"
             android:onClick="onBackButtonClicked"
-            android:padding="16dp"
             android:src="@drawable/ic_back_button"
-            app:layout_anchor="@+id/back_button"
-            app:layout_anchorGravity="center" />
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
 
         <TextView
-            android:id="@+id/trip_name_toolbar"
+            android:id="@+id/activity_name_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="serif"
             android:text="@string/text"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold|italic" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <ImageButton
+            android:id="@+id/createTripSaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:background="@color/transparent"
+            android:contentDescription="@string/add_trip"
+            android:src="@drawable/outline_check_circle_24"
+            android:text="@string/save"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="371dp"
+            tools:layout_editor_absoluteY="8dp" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="377dp"
-        android:layout_height="151dp"
+        android:id="@+id/cardView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="12dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.837">
+        app:layout_constraintVertical_bias="0.787">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
             android:elevation="12dp"
             android:orientation="vertical"
             android:padding="8dp"
@@ -78,27 +94,27 @@
                 android:id="@+id/readTripName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trip Name"
+                android:text="@string/trip_name"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:textStyle="italic|bold" />
 
             <TextView
                 android:id="@+id/readTripDestination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trip Destination"
+                android:text="@string/destination"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="italic|bold" />
 
             <TextView
                 android:id="@+id/readTripType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trip Type"
+                android:text="@string/tripType"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="italic|bold" />
 
 
@@ -109,9 +125,9 @@
             android:id="@+id/linearLayout4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="end|center"
+            android:layout_margin="8dp"
             android:orientation="vertical"
-            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.938"
@@ -122,18 +138,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_calendar"
-                android:text="Starting Trip date"
+                android:text="@string/starting_trip_date"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:drawableLeftCompat="@drawable/ic_calendar" />
 
             <TextView
                 android:id="@+id/readItemStartDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="dd/mm/yyyy"
+                android:text="@string/dd_mm_yyyy"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="italic" />
@@ -142,18 +158,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_calendar"
-                android:text="Ending Trip Dare"
+                android:text="@string/ending_trip_dare"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:drawableLeftCompat="@drawable/ic_calendar" />
 
             <TextView
                 android:id="@+id/readTripEndDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="dd/mm/yyyy"
+                android:text="@string/dd_mm_yyyy"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -181,6 +197,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:background="@color/white"
+            android:contentDescription="@string/trip_image_view"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintCircleRadius="12dp"
@@ -196,15 +213,17 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="172dp"
-        android:layout_height="53dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        app:cardBackgroundColor="#BCBCC6"
         app:cardCornerRadius="12dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.939">
+        app:layout_constraintTop_toBottomOf="@+id/cardView5"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/readTripRating"
@@ -212,7 +231,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
             android:layout_margin="12dp"
-            android:text="Rating"
+            android:text="@string/rating"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -223,23 +242,24 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:layout_margin="12dp"
-            android:text="Price"
+            android:text="@string/price"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="177dp"
-        android:layout_height="46dp"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        app:cardBackgroundColor="#BCBCC6"
         app:cardCornerRadius="12dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cardView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.642">
+        app:layout_constraintVertical_bias="1.0">
 
 
         <LinearLayout
@@ -259,6 +279,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
+                android:contentDescription="@string/temperature"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_temperature" />
 
             <TextView
@@ -274,7 +296,8 @@
                 android:id="@+id/descriptionImageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/weather" />
 
             <TextView
                 android:id="@+id/weatherDescription"
@@ -297,10 +320,10 @@
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.555">
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/tripFavoriteButton"

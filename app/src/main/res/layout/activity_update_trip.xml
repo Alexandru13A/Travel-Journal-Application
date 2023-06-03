@@ -4,31 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FFFFFF"
     tools:context=".activities.AddTripActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/AppTheme.Toolbar.TitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/AppTheme.Toolbar.TitleText"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/side_nav_bar" />
+        android:background="@drawable/side_nav_bar"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="start|center"
             android:contentDescription="@string/back_button"
             android:onClick="onBackButtonClicked"
-            android:padding="16dp"
-            android:src="@drawable/ic_back_button" />
+            android:src="@drawable/ic_back_button"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
 
         <TextView
             android:id="@+id/activity_name_toolbar"
@@ -38,31 +41,30 @@
             android:fontFamily="serif"
             android:text="@string/text"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold|italic" />
 
         <ImageButton
             android:id="@+id/createTripSaveButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
             android:background="@color/transparent"
             android:contentDescription="@string/add_trip"
             android:src="@drawable/outline_check_circle_24"
             android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976" />
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="371dp"
+            tools:layout_editor_absoluteY="8dp" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
         android:layout_width="370dp"
         android:layout_height="75dp"
         android:orientation="horizontal"
+        app:cardBackgroundColor="#F9E9EA"
         app:cardCornerRadius="12dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,21 +80,27 @@
             android:layout_height="48dp"
             android:layout_gravity="start|center"
             android:layout_margin="14dp"
+            android:autofillHints="name"
             android:background="@drawable/rounded_backround"
+            android:hint="@string/trip_name"
+            android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="@string/trip_name"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            tools:ignore="LabelFor" />
 
         <EditText
             android:id="@+id/createTripDestinationEditText"
             android:layout_width="134dp"
             android:layout_height="48dp"
-            android:layout_gravity="end|center"
+            android:layout_gravity="center|end"
             android:layout_margin="14dp"
+            android:autofillHints="name"
             android:background="@drawable/rounded_backround"
+            android:hint="@string/destination"
+            android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="@string/destination"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            tools:ignore="LabelFor" />
 
     </androidx.cardview.widget.CardView>
 
@@ -128,13 +136,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableTop="@drawable/ic_calendar"
             android:minHeight="48dp"
             android:onClick="onClickPickStartDate"
             android:text="@string/start_date"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:drawableTopCompat="@drawable/ic_calendar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.746"
@@ -163,13 +171,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableTop="@drawable/ic_calendar"
             android:minHeight="48dp"
             android:onClick="onClickPickEndDate"
             android:text="@string/end_date"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:drawableTopCompat="@drawable/ic_calendar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.728"
@@ -212,7 +220,7 @@
             android:layout_height="wrap_content"
             android:checkableBehavior="single"
             android:minHeight="48dp"
-            android:text="City Break"
+            android:text="@string/trip_type1"
             android:textStyle="bold" />
 
         <RadioButton
@@ -221,7 +229,7 @@
             android:layout_height="wrap_content"
             android:checkableBehavior="single"
             android:minHeight="48dp"
-            android:text="Sea Side"
+            android:text="@string/trip_type2"
             android:textStyle="bold" />
 
         <RadioButton
@@ -230,7 +238,7 @@
             android:layout_height="wrap_content"
             android:checkableBehavior="single"
             android:minHeight="48dp"
-            android:text="Mountains"
+            android:text="@string/trip_type3"
             android:textStyle="bold" />
 
     </RadioGroup>
@@ -267,7 +275,7 @@
         android:id="@+id/tripMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EUR"
+        android:text="@string/eur"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -277,9 +285,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
         android:layout_width="261dp"
         android:layout_height="182dp"
         android:orientation="vertical"
+        app:cardBackgroundColor="#F9E9EA"
         app:cardCornerRadius="12dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -293,6 +303,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
+            android:contentDescription="@string/select_image_from_gallery"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/imageholder" />
 

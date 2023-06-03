@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-
         <item name="android:homeAsUpIndicator">@drawable/ic_back_button</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#197A26</item>
-        <item name="colorAccent">@color/darkgreen</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorPrimaryDark">#FFFFFF</item>
+        <item name="colorAccent">#505050</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -20,13 +20,13 @@
 
     <style name="MySeekBar" parent="Widget.AppCompat.SeekBar">
         <item name="android:progressBackgroundTint">#000000</item>
-        <item name="android:progressTint">#FFFFFF</item>
+        <item name="android:progressTint">#000000</item>
         <item name="android:colorControlActivated">#515756</item>
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">#476C3A</item>
-        <item name="colorControlActivated">#E4E4E4</item>
+        <item name="colorControlNormal">#E2E2E0</item>
+        <item name="colorControlActivated">#BCBCC6</item>
     </style>
 
     <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">
