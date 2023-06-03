@@ -21,10 +21,10 @@ Key features of the project include:
 - OpenWeatherMap API
 
 
-![Main activity](C:\Users\pacio\Pictures\Screenshots\1)
-![Nav bar](C:\Users\pacio\Pictures\Screenshots\2)
-![Read](C:\Users\pacio\Pictures\Screenshots\3)
-![Favorites](C:\Users\pacio\Pictures\Screenshots\4)
-![Contact](C:\Users\pacio\Pictures\Screenshots\5)
-![About us](C:\Users\pacio\Pictures\Screenshots\6)
+![Main activity](1.png)
+![Nav bar](2.png)
+![Read](3.png)
+![Favorites](4.png)
+![Contact](5.png)
+![About us](6.png)
 
