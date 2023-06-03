@@ -21,10 +21,10 @@ Key features of the project include:
 - OpenWeatherMap API
 
 
-![Main activity](1.png)
-![Nav bar](2.png)
-![Read](3.png)
-![Favorites](4.png)
-![Contact](5.png)
-![About us](6.png)
+![Main activity](1.png = 250x250) ![Nav bar](2.png = 250x250)
+
+![Read](3.png= 250x250)  ![Favorites](4.png)
+
+![Contact](5.png= 250x250)   ![About us](6.png= 250x250)
+
 
