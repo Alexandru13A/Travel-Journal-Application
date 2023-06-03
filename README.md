@@ -19,7 +19,8 @@ Key features of the project include:
 - Room
 - Picasso
 - OpenWeatherMap API
-
+https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/1.png
+<img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/1.png" width="200" height="400" />
 
 ![Main activity](1.png =250x250) 
 ![Nav bar](2.png =250x250)
