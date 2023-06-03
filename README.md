@@ -20,11 +20,11 @@ Key features of the project include:
 - Picasso
 - OpenWeatherMap API
 
-<img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/1.png" width="200" height="400" /> <img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/2.png" width="200" height="400" />
+<img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/1.png" width="200" height="400" />         <img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/2.png" width="200" height="400" />
 
-<img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/3.png" width="200" height="400" /><img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/4.png" width="200" height="400" />
+<img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/3.png" width="200" height="400" />         <img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/4.png" width="200" height="400" />
 
-<img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/5.png" width="200" height="400" /><img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/6.png" width="200" height="400" />
+<img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/5.png" width="200" height="400" />         <img src="https://github.com/Alexandru13A/Travel-Journal-Application/blob/master/6.png" width="200" height="400" />
 
 
 
